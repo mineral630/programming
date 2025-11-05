@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI 전자기기 자가진단 및 해결책 추천</title>
+
+    <!-- LOVABLE 스타일용 폰트 -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root{
+            --bg-1: #fff7fb;
+            --bg-2: #f0fbff;
+            --card:#ffffff;
+            --accent:#ff6b9a; /* loving pink */
+            --accent-2:#6bd3ff; /* friendly sky */
+            --muted:#637381;
+            --glass: rgba(255,255,255,0.7);
+            --shadow: 0 12px 30px rgba(15,23,42,0.08);
+            --radius: 18px;
+        }
+
+        /* 기본 레이아웃 */
+        *{box-sizing:border-box}
+        html,body{height:100%}
+        body{
+            margin:0;
+            font-family:'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, #fff0f6 0%, transparent 8%),
+                        radial-gradient(900px 400px at 90% 90%, #e8faff 0%, transparent 6%),
+                        linear-gradient(180deg, var(--bg-1), var(--bg-2));
+            color:#10202a;
+            -webkit-font-smoothing:antialiased;
+            -moz-osx-font-smoothing:grayscale;
+            padding:36px 20px;
+        }
+
+        header{
+            max-width:1080px;
+            margin:0 auto 20px;
+            padding:20px 26px;
+            background: linear-gradient(90deg, rgba(255,107,154,0.12), rgba(107,211,255,0.08));
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display:flex;
+            gap:16px;
+            align-items:center;
+        }
+        .logo{
+            width:64px;height:64px;border-radius:14px;
+            background: linear-gradient(135deg,var(--accent),var(--accent-2));
+            display:flex;align-items:center;justify-content:center;color:white;font-weight:700;
+            box-shadow: 0 8px 20px rgba(107,211,255,0.12);
+            flex-shrink:0;
+            transform: rotate(-6deg);
+        }
+        .title-wrap{line-height:1}
+        h1{margin:0;font-size:20px}
+        p.lead{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+        .container{max-width:1080px;margin:0 auto}
+        .grid{
+            display:grid;
+            grid-template-columns:1fr 360px;
+            gap:20px;
+            align-items:start;
+            margin-top:18px;
+        }
+
+        .card{
+            background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(255,255,255,0.85));
+            border-radius: var(--radius);
+            padding:18px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(16,32,42,0.04);
+        }
+
+        label{display:block;font-weight:600;margin:10px 0 6px;color:#233043}
+        select,input[type="text"],textarea{
+            width:100%;
+            padding:12px 14px;
+            border-radius:12px;
+            border:1px solid rgba(15,23,42,0.06);
+            background: linear-gradient(180deg, #fff, #fbfcff);
+            font-size:14px;
+            outline:none;
+            transition:box-shadow .15s,transform .08s;
+        }
+        select:focus,input[type="text"]:focus,textarea:focus{
+            box-shadow: 0 6px 20px rgba(107,211,255,0.18);
+            transform: translateY(-1px);
+            border-color: rgba(107,211,255,0.5);
+        }
+        textarea{min-height:140px;resize:vertical}
+
+        .controls{margin-top:12px;display:flex;gap:10px;flex-wrap:wrap}
+        .btn{
+            display:inline-flex;align-items:center;gap:10px;
+            background: linear-gradient(90deg,var(--accent),#ff9bbd);
+            color:#fff;padding:12px 16px;border-radius:12px;border:0;cursor:pointer;font-weight:600;
+            box-shadow: 0 10px 20px rgba(255,107,154,0.12);
+            transition:transform .08s,box-shadow .12s,opacity .12s;
+        }
+        .btn:active{transform:translateY(1px)}
+        .btn.secondary{
+            background: linear-gradient(180deg, #ffffff, #f6fbff);
+            color:var(--accent);
+            border:1px solid rgba(107,211,255,0.14);
+            box-shadow: 0 8px 18px rgba(107,211,255,0.06);
+        }
+        .btn.ghost{
+            background:transparent;border:1px dashed rgba(16,32,42,0.06);color:var(--muted);
+        }
+
+        .result{margin-top:14px}
+        .chip{
+            display:inline-block;
+            background:linear-gradient(90deg, rgba(107,211,255,0.14), rgba(255,107,154,0.08));
+            color:var(--accent);
+            padding:8px 12px;border-radius:999px;font-size:13px;margin-right:10px;font-weight:600;
+            box-shadow: 0 6px 18px rgba(16,32,42,0.04);
+        }
+
+        .rule{
+            margin:12px 0;padding:14px;border-radius:12px;
+            background:linear-gradient(180deg,#fff,#fbfdff);
+            border-left:6px solid rgba(107,211,255,0.12);
+            color:#14323c;
+            font-weight:500;
+        }
+        .small{font-size:13px;color:var(--muted)}
+        footer{margin:28px 0;text-align:center;color:var(--muted);font-size:13px}
+
+        .log{
+            background: linear-gradient(180deg, #082033, #0f1724);
+            color:#e6f6ff;padding:12px;border-radius:10px;white-space:pre-wrap;font-family:monospace;font-size:13px;
+        }
+        .suggestions li{margin:8px 0;}
+
+        /* Lovely micro animations */
+        .logo::after{
+            content:'';
+            position:absolute;
+            width:36px;height:36px;border-radius:10px;opacity:.12;
+            background:linear-gradient(90deg, rgba(255,255,255,0.6), rgba(255,255,255,0.2));
+            transform:translateY(6px) rotate(12deg);
+        }
+
+        /* Responsive */
+        @media(max-width:920px){
+            .grid{grid-template-columns:1fr;}
+            header{flex-direction:row;gap:12px}
+        }
+
+        @media(prefers-reduced-motion: no-preference){
+            .logo{transition:transform .6s ease-in-out; animation: logoFloat 6s ease-in-out infinite}
+            @keyframes logoFloat{0%{transform:rotate(-6deg) translateY(0)}50%{transform:rotate(-6deg) translateY(-6px)}100%{transform:rotate(-6deg) translateY(0)}}
+            .btn:hover{transform:translateY(-4px);box-shadow:0 18px 32px rgba(255,107,154,0.12)}
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo" aria-hidden="true">♥</div>
+        <div class="title-wrap">
+            <h1>AI 기반 전자기기 자가진단</h1>
+            <p class="lead">친절하고 따뜻한 안내로 문제 원인과 단계별 해결책을 제안합니다.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="grid">
+            <section class="card" aria-label="진단 입력">
+                <label for="device">기기 종류</label>
+                <select id="device">
+                    <option>스마트폰</option>
+                    <option>노트북</option>
+                    <option>태블릿</option>
+                    <option>데스크톱</option>
+                    <option>스마트워치</option>
+                    <option>가전 (TV 등)</option>
+                </select>
+
+                <label for="symptoms">증상(간략히 작성하세요)</label>
+                <textarea id="symptoms" placeholder="예: 배터리 빨리 닳음, 충전 안됨, 화면 깜박임, 부팅 실패 등"></textarea>
+
+                <label class="small">추가 정보 (선택)</label>
+                <input id="age" type="text" placeholder="기기 구입한 지 몇 년? 예: 1.5 (년)" />
+                <div class="controls">
+                    <button class="btn" id="analyzeBtn">진단 시작</button>
+                    <button class="btn secondary" id="clearBtn">초기화</button>
+                    <button class="btn secondary" id="downloadBtn">리포트 저장</button>
+                </div>
+
+                <div class="result" id="resultArea" hidden>
+                    <div style="margin-top:12px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                        <span class="chip" id="confidenceChip">신뢰도: 0%</span>
+                        <span class="small" id="summaryText"></span>
+                    </div>
+
+                    <div id="causeList" style="margin-top:12px"></div>
+
+                    <div style="margin-top:14px">
+                        <strong>권장 해결 절차</strong>
+                        <ol class="suggestions" id="steps"></ol>
+                    </div>
+
+                    <div style="margin-top:12px">
+                        <strong>진단 로그</strong>
+                        <div class="log" id="diagLog"></div>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="card" aria-label="도움말 및 예시">
+                <h3 style="margin-top:0">사용 팁</h3>
+                <ul class="small">
+                    <li>증상을 최대한 구체적으로 작성하세요. </li>
+                    <li>여러 증상은 쉼표로 구분하세요.</li>
+                    <li>예: "충전 중인데 0%에서 증가하지 않음"</li>
+                </ul>
+
+                <div style="margin-top:12px">
+                    <h4 style="margin:6px 0">예시 증상</h4>
+                    <div class="rule small">전원 문제: 전원 안 켜짐, 부팅 로고에서 멈춤</div>
+                    <div class="rule small">배터리/충전: 충전 안됨, 배터리 급감</div>
+                    <div class="rule small">화면/디스플레이: 깜박임, 터치 불응</div>
+                </div>
+
+                <div style="margin-top:12px">
+                    <h4 style="margin:6px 0">주의</h4>
+                    <p class="small">이 도구는 로컬 규칙 기반 진단 도구입니다. 실제 수리 필요 시 공식 서비스 센터 방문을 권장합니다.</p>
+                </div>
+            </aside>
+        </div>
+
+        <footer>
+            <div class="small">로컬 규칙 기반 진단 · AI 연동 없음 · 로그는 기기에서만 생성됩니다</div>
+        </footer>
+    </main>
+
+    <script>
+        // 간단한 규칙 기반 'AI' 진단 엔진 (클라이언트 전용, 외부 통신 없음)
+        const symptomMap = [
+            { keywords: ['충전','충전기','충전 안됨','충전중'], cause: '충전기/케이블 불량 또는 충전 포트 오염', steps: [
+                '다른 케이블/어댑터로 충전 시도',
+                '충전 포트에 먼지나 이물질이 있는지 확인 후 부드럽게 청소',
+                '배터리 상태 확인 (설정 → 배터리) 또는 배터리 교체 고려'
+            ]},
+            { keywords: ['배터리','배터리 빨리','전원 꺼짐','급감'], cause: '배터리 노화 / 백그라운드 앱 과다', steps: [
+                '백그라운드 앱 종료 및 절전 모드 활성화',
+                '화면 밝기 및 위치 서비스 등 사용 줄이기',
+                '배터리 사이클이 오래되었으면 교체를 고려'
+            ]},
+            { keywords: ['부팅','켜지지','부팅 실패','로고에서 멈춤'], cause: '시스템 소프트웨어 오류 또는 하드웨어 부팅 문제', steps: [
+                '강제 재시작(모델별 버튼 조합) 시도',
+                '안전 모드로 부팅하여 최근 설치된 앱 제거',
+                '복구 모드에서 초기화(데이터 삭제 주의) 또는 서비스센터 방문'
+            ]},
+            { keywords: ['화면','깜박','터치','블랙스크린','화면 깨짐'], cause: '디스플레이(패널) 문제 또는 소프트웨어 드라이버 이상', steps: [
+                '소프트 리셋 후 증상 확인',
+                '외부 디스플레이 연결 또는 화면 캡쳐로 출력 확인',
+                '화면 교체 또는 서비스센터 점검'
+            ]},
+            { keywords: ['소리','스피커','마이크','통화 소리 작음'], cause: '오디오 하드웨어/설정 문제', steps: [
+                '음량, 블루투스 연결, 모드(진동 등) 확인',
+                '헤드폰 연결 시 정상 작동 여부 확인',
+                '하드웨어 결함 시 서비스센터 점검'
+            ]},
+            { keywords: ['와이파이','인터넷','네트워크','연결안됨'], cause: '네트워크 설정 또는 라우터 문제', steps: [
+                '비행기 모드 ON/OFF, 네트워크 재설정',
+                '라우터 재시작 및 다른 기기 연결 확인',
+                'ISP 문제 의심 시 통신사 문의'
+            ]},
+            { keywords: ['느려','버벅임','프리징'], cause: '메모리 부족 또는 저장공간 포화', steps: [
+                '불필요한 앱/파일 정리',
+                '캐시 데이터 정리 및 재부팅',
+                '메모리/스토리지 업그레이드 또는 초기화 고려'
+            ]},
+            { keywords: ['발열','과열'], cause: 'CPU 과부하 또는 하드웨어 냉각 문제', steps: [
+                '무거운 앱 종료 및 재부팅',
+                '직사광선, 고온 환경 피하기',
+                '지속적 과열 시 서비스센터 점검'
+            ]},
+            { keywords: ['카메라','사진','촬영'], cause: '카메라 모듈 문제 또는 소프트웨어 권한', steps: [
+                '카메라 앱 권한 확인 및 다른 앱으로 촬영 시도',
+                '카메라 앱 캐시/데이터 삭제',
+                '하드웨어 문제 시 모듈 교체 필요'
+            ]}
+        ];
+
+        function analyzeText(text, device, ageStr) {
+            const lower = text.toLowerCase();
+            const words = lower.split(/[,.\s]+/).filter(Boolean);
+            const matches = [];
+            let log = [];
+            symptomMap.forEach(rule => {
+                let hit = rule.keywords.some(k => lower.includes(k));
+                if (!hit) { // 또한 개별 단어 매칭 허용
+                    hit = rule.keywords.some(k => words.includes(k.replace(/ /g,'')));
+                }
+                if (hit) {
+                    matches.push(rule);
+                    log.push(`매칭: "${rule.cause}" (키워드: ${rule.keywords.join(', ')})`);
+                }
+            });
+
+            // 기본 점수 계산: 매칭 수, 설명 길이, 연식 가중치
+            let confidence = Math.min(95, Math.round(Math.min(1, matches.length / 2) * 100));
+            const age = parseFloat(ageStr);
+            if (!isNaN(age) && age >= 2) confidence = Math.min(98, confidence + 8); // 오래된 기기면 하드웨어 원인 가능성↑
+
+            // Fallback: 매칭이 없으면 키워드 기반 유사 탐지
+            if (matches.length === 0) {
+                log.push('명확한 규칙 매칭 없음 — 키워드 기반 유사도 검사 시작');
+                const fallback = symptomMap.map(r => {
+                    const score = r.keywords.reduce((s,k)=> s + (lower.includes(k) ? 1 : 0), 0);
+                    return {rule:r,score};
+                }).sort((a,b)=>b.score-a.score);
+                if (fallback[0].score > 0) {
+                    matches.push(fallback[0].rule);
+                    confidence = Math.max(confidence, 45);
+                    log.push(`유사 매칭: "${fallback[0].rule.cause}" (스코어: ${fallback[0].score})`);
+                } else {
+                    log.push('유사 매칭 결과 없음 — 더 상세한 증상 필요');
+                }
+            }
+
+            // 합치기
+            const causes = Array.from(new Set(matches.map(m=>m.cause)));
+            const steps = matches.flatMap(m=>m.steps);
+            return { causes, steps, confidence, log };
+        }
+
+        // UI 연결
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const clearBtn = document.getElementById('clearBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const symptomsEl = document.getElementById('symptoms');
+        const deviceEl = document.getElementById('device');
+        const ageEl = document.getElementById('age');
+        const resultArea = document.getElementById('resultArea');
+        const summaryText = document.getElementById('summaryText');
+        const causeList = document.getElementById('causeList');
+        const stepsEl = document.getElementById('steps');
+        const diagLog = document.getElementById('diagLog');
+        const confidenceChip = document.getElementById('confidenceChip');
+
+        analyzeBtn.addEventListener('click', () => {
+            const text = symptomsEl.value.trim();
+            if (!text) {
+                alert('증상을 입력하세요.');
+                symptomsEl.focus();
+                return;
+            }
+            const device = deviceEl.value;
+            const age = ageEl.value.trim();
+            const res = analyzeText(text, device, age);
+
+            resultArea.hidden = false;
+            confidenceChip.textContent = `신뢰도: ${res.confidence}%`;
+            summaryText.textContent = `예상 원인 ${res.causes.length}건 · 기기: ${device}`;
+            causeList.innerHTML = res.causes.map(c => `<div class="rule"><strong>원인:</strong> ${c}</div>`).join('');
+            stepsEl.innerHTML = res.steps.length ? res.steps.map(s => `<li>${s}</li>`).join('') : '<li>추가 정보 필요 — 상세 증상이나 오류 코드 입력</li>';
+            diagLog.textContent = res.log.join('\n');
+
+            // 스크롤하여 결과 표시
+            resultArea.scrollIntoView({behavior:'smooth', block:'nearest'});
+        });
+
+        clearBtn.addEventListener('click', () => {
+            symptomsEl.value = '';
+            ageEl.value = '';
+            resultArea.hidden = true;
+            diagLog.textContent = '';
+            stepsEl.innerHTML = '';
+            causeList.innerHTML = '';
+            summaryText.textContent = '';
+            confidenceChip.textContent = '신뢰도: 0%';
+        });
+
+        downloadBtn.addEventListener('click', () => {
+            if (resultArea.hidden) { alert('먼저 진단을 실행하세요.'); return; }
+            const now = new Date().toISOString();
+            const report = [
+                `진단 리포트 - ${now}`,
+                `기기: ${deviceEl.value}`,
+                `증상: ${symptomsEl.value.trim()}`,
+                `추정 신뢰도: ${confidenceChip.textContent.replace('신뢰도: ','')}`,
+                '',
+                '추정 원인:',
+                ...Array.from(causeList.querySelectorAll('.rule')).map(r => '- ' + r.textContent.replace('원인: ','').trim()),
+                '',
+                '권장 절차:',
+                ...Array.from(stepsEl.querySelectorAll('li')).map((li,i) => `${i+1}. ${li.textContent}`),
+                '',
+                '진단 로그:',
+                diagLog.textContent
+            ].join('\n');
+
+            const blob = new Blob([report], {type:'text/plain;charset=utf-8'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `diagnosis_${(new Date()).toISOString().slice(0,19).replace(/[:T]/g,'_')}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+            URL.revokeObjectURL(url);
+        });
+
+        // 간단 자동완성 예시 (선택적)
+        symptomsEl.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { analyzeBtn.click(); }
+        });
+    </script>
+</body>
+</html>
+// ...existing code...
