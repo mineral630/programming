@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>노트북 - 주요 고장 유형</title>
+  <style>
+    /* 스타일은 원본과 동일하게 유지됩니다 */
+    :root {
+      --primary: hsl(199, 89%, 48%);
+      --background: hsl(210, 40%, 98%);
+      --foreground: hsl(222, 47%, 11%);
+      --card: white;
+      --border: hsl(214, 32%, 91%);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: hsla(210, 40%, 98%, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    .header-content {
+      max-width: 800px; margin: 0 auto; padding: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .back-btn {
+      background: none; border: none; border-radius: 50%;
+      width: 2.5rem; height: 2.5rem; display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; transition: background-color 0.2s;
+      color: inherit; text-decoration: none;
+    }
+    .back-btn:hover { background: hsla(199, 89%, 48%, 0.1); }
+    .back-btn svg {
+      width: 1.25rem; height: 1.25rem;
+      stroke: var(--foreground); stroke-width: 2.5;
+    }
+    .header-title { font-size: 1.25rem; font-weight: 600; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { text-align: center; color: var(--primary); margin-bottom: 2.5rem; }
+    .accordion {
+      background-color: var(--card); color: var(--foreground);
+      cursor: pointer; padding: 1.25rem 1.5rem; width: 100%;
+      border: none; border-bottom: 1px solid var(--border);
+      text-align: left; outline: none; font-size: 1.1rem;
+      font-weight: 600; transition: background-color 0.3s ease;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .accordion:first-of-type { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+    .accordion:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; border-bottom: none; }
+    .accordion:not(:last-of-type) { border-bottom: 1px solid var(--border); }
+    .accordion:hover, .accordion.active { background-color: hsla(199, 89%, 48%, 0.05); }
+    .accordion::after {
+      content: '\FF0B'; font-size: 1.25rem; font-weight: bold;
+      color: var(--primary); margin-left: 1rem; transition: transform 0.2s ease-out;
+    }
+    .accordion.active::after { content: '\2212'; transform: rotate(180deg); }
+    .panel {
+      padding: 0 1.5rem; background-color: white; max-height: 0;
+      overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    .panel:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+    .panel-content { padding: 1.5rem 0.5rem; border-top: 1px dashed var(--border); }
+    .panel-content h3 { color: var(--primary); margin-bottom: 1rem; }
+    .panel-content p { line-height: 1.7; margin-bottom: 1rem; }
+    .panel-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+    .panel-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="back-btn" aria-label="홈으로 돌아가기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </a>
+      <h1 class="header-title">노트북 진단</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>💻 노트북 주요 고장 유형</h1>
+
+    <button class="accordion">노트북 전원이 켜지지 않아요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>🔌 전원 문제 자가 진단</h3>
+        <p>전원이 켜지지 않을 때 다음을 확인해 주세요.</p>
+        <ul>
+          <li><strong>전원 어댑터 연결 확인:</strong> 어댑터가 콘센트와 노트북에 끝까지 잘 꽂혀 있는지 확인합니다. 멀티탭을 사용 중이라면 멀티탭 자체의 전원이 켜져 있는지도 확인하세요.</li>
+          <li><strong>완전 방전 대기:</strong> 배터리가 완전히 방전된 경우, 전원을 연결해도 바로 켜지지 않을 수 있습니다. 최소 30분 이상 충전한 후 다시 전원 버튼을 눌러보세요.</li>
+          <li><strong>강제 종료(리셋):</strong> 전원 버튼을 15초 이상 길게 눌러 전원을 완전히 끈 후, 다시 켜보세요.</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="accordion">노트북 속도가 갑자기 느려졌어요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>💨 성능 저하 문제 해결</h3>
+        <p>여러 프로그램이 동시에 실행되거나 저장 공간이 부족할 때 속도가 느려질 수 있습니다.</p>
+        <ul>
+          <li><strong>시작 프로그램 관리:</strong> '작업 관리자(Ctrl+Shift+Esc) > 시작프로그램' 탭에서 불필요한 프로그램이 자동으로 시작되지 않도록 '사용 안 함'으로 변경하세요.</li>
+          <li><strong>저장 공간 확보:</strong> '디스크 정리'를 실행하거나 불필요한 파일을 삭제하여 C 드라이브의 여유 공간을 확보하세요.</li>
+          <li><strong>악성코드 검사:</strong> 바이러스 백신 프로그램을 실행하여 악성코드가 시스템 자원을 사용하고 있는지 확인하세요.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <button class="accordion">갑자기 '블루 스크린'이 떠요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>🔵 블루 스크린 (BSOD) 대처</h3>
+        <p>블루 스크린은 하드웨어나 드라이버 충돌로 인해 발생할 수 있습니다.</p>
+        <ul>
+          <li><strong>최근 변경 사항 확인:</strong> 최근에 설치한 프로그램이나 연결한 하드웨어가 있다면 제거하고 다시 시도해 보세요.</li>
+          <li><strong>드라이버 업데이트:</strong> '장치 관리자'에서 그래픽 카드나 사운드 카드 등 주요 장치의 드라이버를 최신 버전으로 업데이트하세요.</li>
+          <li><strong>Windows 업데이트:</strong> 최신 Windows 보안 및 시스템 안정성 패치를 설치합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* 스크립트는 원본과 동일하게 유지됩니다 */
+    document.addEventListener('DOMContentLoaded', () => {
+      const accordions = document.getElementsByClassName('accordion');
+      for (let i = 0; i < accordions.length; i++) {
+        accordions[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

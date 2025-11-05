@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>이어폰/헤드폰 - 주요 고장 유형</title>
+  <style>
+    /* 1번 파일과 동일한 CSS */
+    :root {
+      --primary: hsl(199, 89%, 48%);
+      --background: hsl(210, 40%, 98%);
+      --foreground: hsl(222, 47%, 11%);
+      --card: white;
+      --border: hsl(214, 32%, 91%);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: hsla(210, 40%, 98%, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    .header-content {
+      max-width: 800px; margin: 0 auto; padding: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .back-btn {
+      background: none; border: none; border-radius: 50%;
+      width: 2.5rem; height: 2.5rem; display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; transition: background-color 0.2s;
+      color: inherit; text-decoration: none;
+    }
+    .back-btn:hover { background: hsla(199, 89%, 48%, 0.1); }
+    .back-btn svg {
+      width: 1.25rem; height: 1.25rem;
+      stroke: var(--foreground); stroke-width: 2.5;
+    }
+    .header-title { font-size: 1.25rem; font-weight: 600; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { text-align: center; color: var(--primary); margin-bottom: 2.5rem; }
+    .accordion {
+      background-color: var(--card); color: var(--foreground);
+      cursor: pointer; padding: 1.25rem 1.5rem; width: 100%;
+      border: none; border-bottom: 1px solid var(--border);
+      text-align: left; outline: none; font-size: 1.1rem;
+      font-weight: 600; transition: background-color 0.3s ease;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .accordion:first-of-type { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+    .accordion:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; border-bottom: none; }
+    .accordion:not(:last-of-type) { border-bottom: 1px solid var(--border); }
+    .accordion:hover, .accordion.active { background-color: hsla(199, 89%, 48%, 0.05); }
+    .accordion::after {
+      content: '\FF0B'; font-size: 1.25rem; font-weight: bold;
+      color: var(--primary); margin-left: 1rem; transition: transform 0.2s ease-out;
+    }
+    .accordion.active::after { content: '\2212'; transform: rotate(180deg); }
+    .panel {
+      padding: 0 1.5rem; background-color: white; max-height: 0;
+      overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    .panel:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+    .panel-content { padding: 1.5rem 0.5rem; border-top: 1px dashed var(--border); }
+    .panel-content h3 { color: var(--primary); margin-bottom: 1rem; }
+    .panel-content p { line-height: 1.7; margin-bottom: 1rem; }
+    .panel-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+    .panel-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="back-btn" aria-label="홈으로 돌아가기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </a>
+      <h1 class="header-title">이어폰/헤드폰 진단</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>🎧 이어폰/헤드폰 주요 고장 유형</h1>
+
+    <button class="accordion">한쪽 이어폰(유닛) 소리가 안 들려요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>🔁 페어링 및 밸런스 문제</h3>
+        <p>무선 이어폰의 한쪽 소리 문제는 대부분 연결 오류나 설정 문제입니다.</p>
+        <ul>
+          <li><strong>케이스 재장착:</strong> 양쪽 이어폰 유닛을 모두 충전 케이스에 넣고 뚜껑을 닫았다가, 10초 후에 다시 꺼내서 연결해 보세요.</li>
+          <li><strong>블루투스 재연결:</strong> 스마트폰의 블루투스 설정에서 해당 이어폰 기기를 '등록 해제' 또는 '삭제'한 후, 이어폰을 페어링 모드로 진입시켜 처음부터 다시 연결해 보세요.</li>
+          <li><strong>좌우 밸런스 확인:</strong> '설정 > 접근성 > 청각' 메뉴에서 '오디오 밸런스'가 중앙으로 맞춰져 있는지 확인하세요.</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="accordion">블루투스 연결이 자꾸 끊겨요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>📡 연결 불안정 문제</h3>
+        <p>전파 방해나 기기 간의 거리 문제일 수 있습니다.</p>
+        <ul>
+          <li><strong>거리 확인:</strong> 스마트폰과 이어폰의 거리가 10m 이내인지 확인하세요. 중간에 벽이나 장애물이 있으면 연결이 불안정해질 수 있습니다.</li>
+          <li><strong>전파 방해 지역:</strong> 지하철, 버스 등 사람이 많거나 Wi-Fi, 블루투스 기기가 밀집된 곳에서는 일시적으로 끊길 수 있습니다.</li>
+          <li><strong>기기 재연결:</strong> 이어폰/헤드폰의 전원을 껐다가 다시 켜서 재연결해 보세요.</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="accordion">충전 케이스에 넣어도 충전이 안 돼요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>✨ 충전 단자 접촉 불량</h3>
+        <p>충전 단자에 이물질이 끼면 접촉 불량이 발생할 수 있습니다.</p>
+        <ul>
+          <li><strong>충전 단자 청소:</strong> 이어폰 유닛의 충전 단자(금속 부분)와 케이스 내부의 충전 핀을 면봉이나 부드러운 천으로 조심스럽게 닦아주세요.</li>
+          <li><strong>케이스 배터리 확인:</strong> 충전 케이스 자체가 방전되었는지 확인하세요. 케이스를 먼저 충전기에 연결해 보세요.</li>
+          <li><strong>펌웨어 업데이트:</strong> 제조사 앱을 통해 이어폰의 펌웨어가 최신 버전인지 확인하고 업데이트합니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const accordions = document.getElementsByClassName('accordion');
+      for (let i = 0; i < accordions.length; i++) {
+        accordions[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
