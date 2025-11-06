@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale-1.0">
+  <title>노트북 - 주요 고장 유형</title>
+  <style>
+    /* 1번 파일과 동일한 CSS */
+    :root {
+      --primary: hsl(199, 89%, 48%);
+      --background: hsl(210, 40%, 98%);
+      --foreground: hsl(222, 47%, 11%);
+      --card: white;
+      --border: hsl(214, 32%, 91%);
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--background);
+      color: var(--foreground);
+      margin: 0;
+      padding: 0;
+    }
+    .header {
+      position: sticky; top: 0; z-index: 50;
+      border-bottom: 1px solid var(--border);
+      background: hsla(210, 40%, 98%, 0.8);
+      backdrop-filter: blur(8px);
+    }
+    .header-content {
+      max-width: 800px; margin: 0 auto; padding: 1rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .back-btn {
+      background: none; border: none; border-radius: 50%;
+      width: 2.5rem; height: 2.5rem; display: flex;
+      align-items: center; justify-content: center;
+      cursor: pointer; transition: background-color 0.2s;
+      color: inherit; text-decoration: none;
+    }
+    .back-btn:hover { background: hsla(199, 89%, 48%, 0.1); }
+    .back-btn svg {
+      width: 1.25rem; height: 1.25rem;
+      stroke: var(--foreground); stroke-width: 2.5;
+    }
+    .header-title { font-size: 1.25rem; font-weight: 600; }
+    .container { max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+    h1 { text-align: center; color: var(--primary); margin-bottom: 2.5rem; }
+    .accordion {
+      background-color: var(--card); color: var(--foreground);
+      cursor: pointer; padding: 1.25rem 1.5rem; width: 100%;
+      border: none; border-bottom: 1px solid var(--border);
+      text-align: left; outline: none; font-size: 1.1rem;
+      font-weight: 600; transition: background-color 0.3s ease;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .accordion:first-of-type { border-top-left-radius: 0.75rem; border-top-right-radius: 0.75rem; }
+    .accordion:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; border-bottom: none; }
+    .accordion:not(:last-of-type) { border-bottom: 1px solid var(--border); }
+    .accordion:hover, .accordion.active { background-color: hsla(199, 89%, 48%, 0.05); }
+    .accordion::after {
+      content: '\FF0B'; font-size: 1.25rem; font-weight: bold;
+      color: var(--primary); margin-left: 1rem; transition: transform 0.2s ease-out;
+    }
+    .accordion.active::after { content: '\2212'; transform: rotate(180deg); }
+    .panel {
+      padding: 0 1.5rem; background-color: white; max-height: 0;
+      overflow: hidden; transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+    .panel:last-of-type { border-bottom-left-radius: 0.75rem; border-bottom-right-radius: 0.75rem; }
+    .panel-content { padding: 1.5rem 0.5rem; border-top: 1px dashed var(--border); }
+    .panel-content h3 { color: var(--primary); margin-bottom: 1rem; }
+    .panel-content p { line-height: 1.7; margin-bottom: 1rem; }
+    .panel-content ul { margin-left: 1.5rem; margin-bottom: 1rem; }
+    .panel-content li { margin-bottom: 0.75rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="header-content">
+      <a href="index.html" class="back-btn" aria-label="홈으로 돌아가기">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+      </a>
+      <h1 class="header-title">노트북 진단</h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <h1>💻 노트북 주요 고장 유형</h1>
+
+    <button class="accordion">노트북이 충전되지 않아요</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>⚡ 충전 문제 해결</h3>
+        <p>충전이 안 될 때는 어댑터, 콘센트, 포트 순서로 확인합니다.</p>
+        <ul>
+          <li><strong>어댑터 연결 확인:</strong> 어댑터가 콘센트와 노트북에 끝까지 잘 꽂혀 있는지, 중간 연결부(있는 경우)가 분리되지 않았는지 확인합니다.</li>
+          <li><strong>다른 콘센트 사용:</strong> 현재 사용하는 멀티탭이나 콘센트가 아닌, 다른 벽면 콘센트에 직접 연결하여 테스트합니다.</li>
+          <li><strong>충전 포트 확인:</strong> 노트북의 충전 포트(단자)에 먼지나 이물질이 꼈는지 확인하고, 입김으로 조심스럽게 불어냅니다. (뾰족한 물건 사용 금지)</li>
+          <li><strong>배터리 드라이버 재설치 (Windows):</strong> '장치 관리자' > '배터리' 항목에서 'Microsoft ACPI-Compliant Control Method Battery'를 우클릭하여 '디바이스 제거' 후 재부팅합니다.</li>
+        </ul>
+      </div>
+    </div>
+
+    <button class="accordion">노트북에 물을 쏟았어요 (침수)</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>💧 침수 시 긴급 대처 (가장 중요!)</h3>
+        <p>침수 시 가장 중요한 것은 **전원을 즉시 차단**하는 것입니다. 절대 전원을 켜서 확인하지 마세요.</p>
+        <ul>
+          <li><strong>즉시 전원 끄기:</strong> 정상 종료가 불가능하면, 전원 버튼을 10초 이상 길게 눌러 강제로 전원을 차단합니다.</li>
+          <li><strong>모든 케이블 분리:</strong> 전원 어댑터, 마우스, USB 등 연결된 모든 케이블과 장치를 즉시 분리합니다.</li>
+          <li><strong>물기 제거 및 뒤집기:</strong> 마른 수건으로 키보드와 외부의 물기를 닦아낸 후, 노트북을 'A'자 또는 'V'자 형태(키보드가 바닥을 향하도록)로 뒤집어 물기가 빠져나오도록 합니다.</li>
+          <li><strong>전문가 점검:</strong> **절대로 전원을 다시 켜지 마세요.** 건조된 것처럼 보여도 내부 메인보드가 부식될 수 있습니다. 즉시 가까운 서비스 센터에 방문하여 침수 세척 및 점검을 받아야 합니다.</li>
+        </ul>
+      </div>
+    </div>
+    
+    <button class="accordion">노트북이 너무 뜨거워요 (발열)</button>
+    <div class="panel">
+      <div class="panel-content">
+        <h3>🔥 발열 문제 해결</h3>
+        <p>발열은 통풍구 막힘이나 과도한 시스템 사용으로 인해 발생합니다.</p>
+        <ul>
+          <li><strong>통풍구 확보:</strong> 노트북 하판이나 측면의 통풍구(바람 나오는 곳)가 막히지 않았는지 확인하세요. 이불이나 침대 위가 아닌, 딱딱하고 평평한 책상 위에서 사용하세요.</li>
+          <li><strong>작업 관리자 확인:</strong> '작업 관리자(Ctrl+Shift+Esc)'를 열어 'CPU'나 'GPU' 점유율이 비정상적으로 높은 프로그램이 있는지 확인하고, 불필요하다면 종료하세요.</li>
+          <li><strong>쿨링팬 청소:</strong> 통풍구에 먼지가 많이 꼈다면, 전원을 끈 상태에서 압축 공기 스프레이(에어캔)로 먼지를 불어내세요.</li>
+          <li><strong>쿨링패드 사용:</strong> 노트북 하판을 띄워 공기 순환을 도와주는 쿨링패드(노트북 쿨러)를 사용하는 것도 좋은 방법입니다.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const accordions = document.getElementsByClassName('accordion');
+      for (let i = 0; i < accordions.length; i++) {
+        accordions[i].addEventListener('click', function() {
+          this.classList.toggle('active');
+          const panel = this.nextElementSibling;
+          if (panel.style.maxHeight) {
+            panel.style.maxHeight = null;
+          } else {
+            panel.style.maxHeight = panel.scrollHeight + 'px';
+          }
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>
