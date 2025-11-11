@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 기기 진단 챗봇 (Live API)</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --secondary: #6366f1;
+      --accent: #10b981;
+      --bg: #f9fafb;
+      --card: #ffffff;
+      --text: #111827;
+      --muted: #6b7280;
+      --hover-bg: #f3f4f6;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.3rem;
+      color: var(--muted);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2rem;
+      border-radius: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+      font-size: 1.2rem;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .btn-primary:hover {
+      background: var(--secondary);
+    }
+
+    .btn-outline {
+      background: var(--card);
+      color: var(--primary);
+      border: 2px solid var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: #fff;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media(min-width:600px) {
+      .grid-3 {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .category-card {
+      background: var(--card);
+      border-radius: 1rem;
+      padding: 2rem 1rem;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative;
+      font-size: 1.3rem;
+    }
+
+    .category-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      background: var(--hover-bg);
+    }
+
+    .category-icon {
+      font-size: 4rem;
+      margin-bottom: 0.5rem;
+      display: inline-block;
+      transition: transform 0.2s;
+    }
+
+    .category-card:hover .category-icon {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .tooltip {
+      position: absolute;
+      bottom: 120%;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--primary);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      white-space: nowrap;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+      font-size: 1rem;
+    }
+
+    .category-card:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(-10px);
+    }
+
+    .category-title {
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .category-desc {
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .chat-page {
+      display: flex;
+      flex-direction: column;
+      height: 70vh;
+      border-radius: 1rem;
+      background: var(--card);
+      overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      margin-top: 2rem;
+    }
+
+    .chat-header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.2rem;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 1rem;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      font-size: 1.2rem;
+    }
+
+    .chat-message {
+      max-width: 75%;
+      padding: 0.75rem 1rem;
+      border-radius: 1rem;
+      word-break: break-word;
+      white-space: pre-wrap;
+    }
+
+    .chat-message.user {
+      align-self: flex-end;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      border-bottom-right-radius: 0.25rem;
+    }
+
+    .chat-message.assistant {
+      align-self: flex-start;
+      background: #f3f4f6;
+      color: var(--text);
+      border-bottom-left-radius: 0.25rem;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 0.75rem;
+      border-top: 1px solid #e5e7eb;
+      background: #fafafa;
+    }
+
+    .chat-input {
+      flex: 1;
+      padding: 1rem;
+      border-radius: 0.75rem;
+      border: 1px solid #d1d5db;
+      resize: none;
+      font-size: 1.2rem;
+    }
+
+    .chat-input:focus {
+      outline: 2px solid var(--primary);
+      border-color: transparent;
+    }
+
+    .send-btn {
+      margin-left: 0.5rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 0.75rem;
+      padding: 0 1.2rem;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-size: 1.2rem;
+    }
+
+    .send-btn:hover {
+      opacity: 0.9;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin: 2rem 0 1rem 0;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container" id="page-index">
+    <header>
+      <h1>AI 기기 진단 챗봇</h1>
+      <p>모든 전자기기 문제를 AI가 친절하게 안내합니다 🐱🤖</p>
+    </header>
+
+    <section class="section-title">기기별 카테고리</section>
+    <section class="grid grid-3">
+      <div class="category-card" data-device="스마트폰/태블릿">
+        <div class="category-icon">📱🐱</div>
+        <div class="category-title">스마트폰/태블릿</div>
+        <div class="category-desc">배터리, 화면, 속도</div>
+        <div class="tooltip">스마트폰/태블릿이 불편하신가요?</div>
+      </div>
+      <div class="category-card" data-device="노트북">
+        <div class="category-icon">💻🦊</div>
+        <div class="category-title">노트북</div>
+        <div class="category-desc">부팅, 속도, 하드웨어</div>
+        <div class="tooltip">노트북 사용이 불편하신가요?</div>
+      </div>
+      <div class="category-card" data-device="데스크탑">
+        <div class="category-icon">🖥️🐼</div>
+        <div class="category-title">데스크탑</div>
+        <div class="category-desc">전원, 블루스크린, 느려짐</div>
+        <div class="tooltip">데스크탑이 불편하신가요?</div>
+      </div>
+      <div class="category-card" data-device="모니터">
+        <div class="category-icon">🖥️🐰</div>
+        <div class="category-title">모니터</div>
+        <div class="category-desc">화면, 색상, 연결</div>
+        <div class="tooltip">모니터가 불편하신가요?</div>
+      </div>
+      <div class="category-card" data-device="이어폰/헤드폰">
+        <div class="category-icon">🎧🐻</div>
+        <div class="category-title">이어폰/헤드폰</div>
+        <div class="category-desc">소리, 연결, 충전</div>
+        <div class="tooltip">이어폰/헤드폰이 불편하신가요?</div>
+      </div>
+      <div class="category-card" data-device="스마트워치">
+        <div class="category-icon">⌚🦄</div>
+        <div class="category-title">스마트워치</div>
+        <div class="category-desc">배터리, 센서, 연결</div>
+        <div class="tooltip">스마트워치가 불편하신가요?</div>
+      </div>
+    </section>
+
+    <section class="section-title">진단 기능 카테고리</section>
+    <section class="grid grid-3">
+      <div class="category-card" data-device="즉시 진단">
+        <div class="category-icon">⚡🐶</div>
+        <div class="category-title">즉시 진단</div>
+        <div class="category-desc">빠른 문제 분석</div>
+        <div class="tooltip">즉시 진단이 필요하신가요?</div>
+      </div>
+      <div class="category-card" data-device="맞춤 솔루션">
+        <div class="category-icon">🛠️🦉</div>
+        <div class="category-title">맞춤 솔루션</div>
+        <div class="category-desc">기기별 최적 해결</div>
+        <div class="tooltip">맞춤 솔루션이 필요하신가요?</div>
+      </div>
+      <div class="category-card" data-device="전문가 수준">
+        <div class="category-icon">👩‍💻🐸</div>
+        <div class="category-title">전문가 수준</div>
+        <div class="category-desc">심화 문제 해결</div>
+        <div class="tooltip">전문가 수준 지원이 필요하신가요?</div>
+      </div>
+    </section>
+
+    <div style="margin-top: 2rem;">
+      <label for="apiKey" style="font-weight: 700; font-size: 1.2rem; color: var(--muted); display: block; margin-bottom: 0.5rem;">API 키 입력 (필수):</label>
+      <input type="text" id="apiKey" class="chat-input" placeholder="Google AI API 키 (AIza...)를 여기에 입력하세요" style="font-size: 1.2rem;">
+    </div>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <button class="btn btn-primary" id="start-diagnose">챗봇 시작하기</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="page-chat">
+    <div class="chat-page">
+      <div class="chat-header">AI 진단 봇 🤖 (Live)</div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-message assistant">안녕하세요! 어떤 기기를 진단해드릴까요? 선택한 기기와 문제를 말씀해주세요.</div>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="chat-input" class="chat-input" placeholder="예: 스마트폰 배터리가 빨리 닳아요"></textarea>
+        <button id="send-btn" class="send-btn" disabled>전송</button>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:1rem;">
+      <button class="btn btn-outline" id="back-home">홈으로 돌아가기</button>
+    </div>
+  </div>
+
+  <script>
+    const pageIndex = document.getElementById('page-index');
+    const pageChat = document.getElementById('page-chat');
+    const startBtn = document.getElementById('start-diagnose');
+    const backHome = document.getElementById('back-home');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const apiKeyInput = document.getElementById('apiKey');
+
+    let globalApiKey = ''; // API 키를 저장할 변수
+
+    startBtn.addEventListener('click', () => {
+      const apiKey = apiKeyInput.value.trim();
+      if (!apiKey) {
+        alert('API 키를 입력해야 챗봇을 시작할 수 있습니다.');
+        return;
+      }
+      globalApiKey = apiKey; // 키를 전역 변수에 저장
+      
+      pageIndex.classList.add('hidden');
+      pageChat.classList.remove('hidden');
+      chatInput.focus();
+    });
+
+      backHome.addEventListener('click', () => {
+      pageChat.classList.add('hidden');
+      pageIndex.classList.remove('hidden');
+      
+      chatMessages.innerHTML = ''; 
+      
+    });
+
+    chatInput.addEventListener('input', () => {
+      sendBtn.disabled = chatInput.value.trim() === '';
+    });
+
+    function addMessage(content, role) {
+      const div = document.createElement('div');
+      div.className = `chat-message ${role}`;
+      div.textContent = content; // textContent를 사용해 텍스트로 추가
+      chatMessages.appendChild(div);
+      chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function sendMessage() {
+      const msg = chatInput.value.trim();
+      if (!msg) return;
+      
+      addMessage(msg, 'user');
+      chatInput.value = '';
+      sendBtn.disabled = true;
+
+      addMessage('분석 중...', 'assistant');
+      const loadingMessage = chatMessages.lastChild; // 로딩 메시지 참조
+
+      const apiKey = globalApiKey;
+      const prompt = msg;
+
+      const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            contents: [{
+              parts: [{
+                text: prompt
+              }]
+            }]
+          })
+        });
+
+        loadingMessage.remove();
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(`API 오류: ${response.status} - ${errorData.error.message}`);
+        }
+
+        const data = await response.json();
+        
+        const aiResponse = data.candidates[0].content.parts[0].text;
+        addMessage(aiResponse, 'assistant'); // AI의 응답을 채팅창에 추가
+
+      } catch (error) {
+        loadingMessage.remove();
+        console.error("API 요청 중 오류 발생:", error);
+        addMessage(`오류 발생: ${error.message}`, 'assistant'); // 오류 메시지를 채팅창에 표시
+      } finally {
+        sendBtn.disabled = false;
+        chatInput.focus();
+      }
+    }
+
+    sendBtn.addEventListener('click', sendMessage);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    });
+
+    document.querySelectorAll('.category-card').forEach(card => {
+      card.addEventListener('click', () => {
+
+        const apiKey = apiKeyInput.value.trim();
+        if (!apiKey) {
+          alert('API 키를 먼저 입력해야 합니다.');
+          apiKeyInput.focus();
+          return;
+        }
+        globalApiKey = apiKey; // 키 저장
+
+        pageIndex.classList.add('hidden');
+        pageChat.classList.remove('hidden');
+        
+        chatMessages.innerHTML = ''; // 채팅 내역 초기화
+        const initialMsg = `안녕하세요! '${card.dataset.device}'에 대해 무엇이 궁금하신가요?`;
+        addMessage(initialMsg, 'assistant');
+        chatInput.focus();
+      });
+    });
+  </script>
+
+</body>
+
+</html>
