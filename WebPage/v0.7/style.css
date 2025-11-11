@@ -127,7 +127,6 @@ header p {
   transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
   position: relative;
   font-size: 1.3rem;
-  overflow: hidden;
 }
 
 .category-card:hover {
@@ -385,4 +384,5 @@ header p {
   padding: 0.9rem 1rem; 
   font-size: 1.15rem;
   border-radius: 0.75rem;
+
 }
