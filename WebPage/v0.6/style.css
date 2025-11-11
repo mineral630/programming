@@ -110,7 +110,6 @@ header p {
   transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
   position: relative;
   font-size: 1.3rem;
-  overflow: hidden; /* 툴팁이 튀어나오면서 생기는 스크롤 방지 */
 }
 
 /* ▼▼▼ 귀여운 애니메이션 적용 ▼▼▼ */
@@ -357,4 +356,5 @@ header p {
   font-size: 1.15rem;
   border-radius: 0.75rem; /* 버튼 모양 변경 */
 }
+
 /* ▲▲▲ 모달 스타일 끝 ▲▲▲ */
