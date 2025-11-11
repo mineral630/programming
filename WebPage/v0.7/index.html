@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI 기기 진단 챗봇 (Live API)</title>
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="container" id="page-index">
+    <header>
+      <h1>AI 기기 진단 챗봇</h1>
+      <p>모든 전자기기 문제를 AI가 친절하게 안내합니다 🤖</p>
+    </header>
+
+    <section class="section-title">기기별 카테고리</section>
+    <section class="grid grid-3">
+        <div class="category-card" data-device="스마트폰/태블릿">
+            <div class="category-icon">📱</div> 
+            <div class="category-title">스마트폰/태블릿</div>
+            <div class="category-desc">배터리, 화면, 속도</div>
+            <div class="tooltip">스마트폰/태블릿이 불편하신가요?</div>
+        </div>
+        <div class="category-card" data-device="노트북">
+            <div class="category-icon">💻</div> 
+            <div class="category-title">노트북</div>
+            <div class="category-desc">부팅, 속도, 하드웨어</div>
+            <div class="tooltip">노트북 사용이 불편하신가요?</div>
+        </div>
+        <div class="category-card" data-device="데스크탑">
+            <div class="category-icon">🖥️</div> 
+            <div class="category-title">데스크탑</div>
+            <div class="category-desc">전원, 블루스크린, 느려짐</div>
+            <div class="tooltip">데스크탑이 불편하신가요?</div>
+        </div>
+        <div class="category-card" data-device="모니터">
+            <div class="category-icon">🖥️</div> 
+            <div class="category-title">모니터</div>
+            <div class="category-desc">화면, 색상, 연결</div>
+            <div class="tooltip">모니터가 불편하신가요?</div>
+        </div>
+        <div class="category-card" data-device="이어폰/헤드폰">
+            <div class="category-icon">🎧</div> 
+            <div class="category-title">이어폰/헤드폰</div>
+            <div class="category-desc">소리, 연결, 충전</div>
+            <div class="tooltip">이어폰/헤드폰이 불편하신가요?</div>
+        </div>
+        <div class="category-card" data-device="스마트워치">
+            <div class="category-icon">⌚</div> 
+            <div class="category-title">스마트워치</div>
+            <div class="category-desc">배터리, 센서, 연결</div>
+            <div class="tooltip">스마트워치가 불편하신가요?</div>
+        </div>
+    </section>
+
+    <section class="section-title">진단 기능 카테고리</section>
+    <section class="grid grid-3">
+        <div class="category-card" data-device="즉시 진단">
+            <div class="category-icon">⚡</div> 
+            <div class="category-title">즉시 진단</div>
+            <div class="category-desc">빠른 문제 분석</div>
+            <div class="tooltip">즉시 진단이 필요하신가요?</div>
+        </div>
+        <div class="category-card" data-device="맞춤 솔루션">
+            <div class="category-icon">🛠️</div> 
+            <div class="category-title">맞춤 솔루션</div>
+            <div class="category-desc">기기별 최적 해결</div>
+            <div class="tooltip">맞춤 솔루션이 필요하신가요?</div>
+        </div>
+        <div class="category-card" data-device="전문가 수준">
+            <div class="category-icon">👩‍💻</div> 
+            <div class="category-title">전문가 수준</div>
+            <div class="category-desc">심화 문제 해결</div>
+            <div class="tooltip">전문가 수준 지원이 필요하신가요?</div>
+        </div>
+    </section>
+
+    <div style="text-align:center; margin-top:2rem;">
+      <button class="btn btn-primary" id="start-diagnose">챗봇 시작하기</button>
+    </div>
+  </div>
+
+  <div class="container hidden" id="page-chat">
+    <div class="chat-page">
+      <div class="chat-header">AI 진단 봇 🤖 (Live)</div>
+      <div class="chat-messages" id="chat-messages">
+        <div class="chat-message assistant">안녕하세요! 어떤 기기를 진단해드릴까요? 선택한 기기와 문제를 말씀해주세요.</div>
+      </div>
+      <div class="chat-input-area">
+        <textarea id="chat-input" class="chat-input" placeholder="예: 스마트폰 배터리가 빨리 닳아요"></textarea>
+        <button id="send-btn" class="send-btn" disabled>전송</button>
+      </div>
+    </div>
+    <div style="text-align:center; margin-top:1rem;">
+      <button class="btn btn-outline" id="back-home">홈으로 돌아가기</button>
+    </div>
+  </div>
+
+  <div class="modal-overlay hidden" id="modal-overlay">
+    <div class="modal-content">
+      <h2 id="modal-title">주요 고장 원인</h2>
+      <div id="modal-body">
+        </div>
+      <div class="modal-buttons">
+        <button class="btn btn-outline" id="modal-back-btn">이전으로</button>
+        <button class="btn btn-primary" id="modal-continue-btn">챗봇으로 계속하기</button>
+      </div>
+    </div>
+  </div>
+  <script src="script.js"></script>
+
+</body>
+</html>
