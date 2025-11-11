@@ -1,13 +1,21 @@
 :root {
   /* 눈이 편안한 Teal/Green 계열 색상으로 변경 */
-  --primary: #047857; /* Dark Teal - 주요 버튼, 헤더 */
-  --secondary: #0d9488; /* Medium Teal - 호버, 그라데이션 */
-  --accent: #34d399; /* Light Green - 강조 */
-  --bg: #f9fafb; /* Light Gray - 배경 */
-  --card: #adebd9; /* White - 카드 배경 */
-  --text: #1f2937; /* Dark Gray - 일반 텍스트 */
-  --muted: #6b7280; /* Muted Gray - 설명 텍스트 */
-  --hover-bg: #f0fdf4; /* Very Light Mint - 카드 호버 배경 */
+  --primary: #047857;
+  /* Dark Teal - 주요 버튼, 헤더 */
+  --secondary: #0d9488;
+  /* Medium Teal - 호버, 그라데이션 */
+  --accent: #34d399;
+  /* Light Green - 강조 */
+  --bg: #f9fafb;
+  /* Light Gray - 배경 */
+  --card: #adebd9;
+  /* White - 카드 배경 */
+  --text: #1f2937;
+  /* Dark Gray - 일반 텍스트 */
+  --muted: #6b7280;
+  /* Muted Gray - 설명 텍스트 */
+  --hover-bg: #f0fdf4;
+  /* Very Light Mint - 카드 호버 배경 */
 }
 
 /* 기본 스타일 */
@@ -15,7 +23,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Pretendard', 'Segoe UI', sans-serif; /* 깔끔한 폰트 우선 적용 */
+  font-family: 'Pretendard', 'Segoe UI', sans-serif;
+  /* 깔끔한 폰트 우선 적용 */
 }
 
 body {
@@ -27,7 +36,8 @@ body {
 .container {
   max-width: 1000px;
   margin: 0 auto;
-  padding: 2.5rem 1.5rem; /* 패딩 증가 */
+  padding: 2.5rem 1.5rem;
+  /* 패딩 증가 */
 }
 
 /* 헤더 스타일 */
@@ -55,11 +65,13 @@ header p {
 .btn {
   display: inline-block;
   padding: 1rem 2.5rem;
-  border-radius: 9999px; /* Pill 모양 버튼 */
+  border-radius: 9999px;
+  /* Pill 모양 버튼 */
   font-weight: 700;
   cursor: pointer;
   text-decoration: none;
-  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 통통 튀는 애니메이션 */
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* 통통 튀는 애니메이션 */
   border: none;
   font-size: 1.25rem;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -102,7 +114,8 @@ header p {
 
 .category-card {
   background: var(--card);
-  border-radius: 1.5rem; /* 더 둥글게 */
+  border-radius: 1.5rem;
+  /* 더 둥글게 */
   padding: 2.5rem 1.5rem;
   text-align: center;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
@@ -110,32 +123,38 @@ header p {
   transition: transform 0.3s, box-shadow 0.3s, background 0.3s;
   position: relative;
   font-size: 1.3rem;
+  /* 툴팁이 튀어나오면서 생기는 스크롤 방지 */
 }
 
 /* ▼▼▼ 귀여운 애니메이션 적용 ▼▼▼ */
 .category-card:hover {
-  transform: translateY(-8px); /* 더 크게 튀어 오름 */
+  transform: translateY(-8px);
+  /* 더 크게 튀어 오름 */
   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
   background: var(--hover-bg);
 }
 
 .category-icon {
-  font-size: 4.5rem; /* 아이콘 크기 증가 */
+  font-size: 4.5rem;
+  /* 아이콘 크기 증가 */
   margin-bottom: 0.5rem;
   display: inline-block;
-  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 튀어 오르는 애니메이션 */
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* 튀어 오르는 애니메이션 */
 }
 
 .category-card:hover .category-icon {
-  transform: scale(1.3) rotate(5deg); /* 더 크게 튀어 오르고 부드럽게 회전 */
+  transform: scale(1.3) rotate(5deg);
+  /* 더 크게 튀어 오르고 부드럽게 회전 */
 }
 
 /* 툴팁 (귀여운 애니메이션) */
 .tooltip {
   position: absolute;
-  bottom: 110%;
+  bottom: 120%;
   left: 50%;
-  transform: translateX(-50%) translateY(20px); /* 초기 위치: 아래에서 올라오도록 */
+  transform: translateX(-50%) translateY(20px);
+  /* 초기 위치: 아래에서 올라오도록 */
   background: var(--primary);
   color: #fff;
   padding: 0.5rem 1rem;
@@ -143,7 +162,8 @@ header p {
   white-space: nowrap;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 튀어 오르는 애니메이션 */
+  transition: opacity 0.3s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  /* 튀어 오르는 애니메이션 */
   font-size: 1rem;
   z-index: 10;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
@@ -151,8 +171,10 @@ header p {
 
 .category-card:hover .tooltip {
   opacity: 1;
-  transform: translateX(-50%) translateY(0); /* 최종 위치: 제자리 */
+  transform: translateX(-50%) translateY(0);
+  /* 최종 위치: 제자리 */
 }
+
 /* ▲▲▲ 귀여운 애니메이션 적용 끝 ▲▲▲ */
 
 .category-title {
@@ -178,7 +200,8 @@ header p {
 .chat-page {
   display: flex;
   flex-direction: column;
-  height: 75vh; /* 높이 증가 */
+  height: 75vh;
+  /* 높이 증가 */
   border-radius: 1.5rem;
   background: var(--card);
   overflow: hidden;
@@ -223,7 +246,8 @@ header p {
 
 .chat-message.assistant {
   align-self: flex-start;
-  background: #eef2ff; /* 연한 파랑색 계열로 변경 */
+  background: #eef2ff;
+  /* 연한 파랑색 계열로 변경 */
   color: var(--text);
   border-bottom-left-radius: 0.5rem;
 }
@@ -290,7 +314,8 @@ header p {
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  opacity: 0; /* 초기에는 숨김 */
+  opacity: 0;
+  /* 초기에는 숨김 */
   transition: opacity 0.3s ease-in-out;
   pointer-events: none;
 }
@@ -307,7 +332,8 @@ header p {
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
   width: 90%;
   max-width: 600px;
-  transform: translateY(-20px) scale(0.95); /* 통통 튀는 모달 등장 애니메이션 */
+  transform: translateY(-20px) scale(0.95);
+  /* 통통 튀는 모달 등장 애니메이션 */
   transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -326,14 +352,16 @@ header p {
 .modal-content #modal-body {
   font-size: 1.15rem;
   margin-bottom: 2.5rem;
-  background: #f8fafc; /* 리스트 배경 추가 */
+  background: #f8fafc;
+  /* 리스트 배경 추가 */
   padding: 1.5rem;
   border-radius: 1rem;
   border: 1px solid #e2e8f0;
 }
 
 .modal-content #modal-body ul {
-  list-style-type: '💡 '; /* 리스트 스타일을 전구로 변경 */
+  list-style-type: '💡 ';
+  /* 리스트 스타일을 전구로 변경 */
   padding-left: 1rem;
   color: var(--text);
 }
@@ -352,9 +380,10 @@ header p {
 
 .modal-buttons .btn {
   flex: 1;
-  padding: 0.9rem 1rem; 
+  padding: 0.9rem 1rem;
   font-size: 1.15rem;
-  border-radius: 0.75rem; /* 버튼 모양 변경 */
+  border-radius: 0.75rem;
+  /* 버튼 모양 변경 */
 }
 
 /* ▲▲▲ 모달 스타일 끝 ▲▲▲ */
