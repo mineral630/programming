@@ -1,0 +1,251 @@
+:root {
+  --primary: #4f46e5;
+  --secondary: #6366f1;
+  --accent: #10b981;
+  --bg: #f9fafb;
+  --card: #ffffff;
+  --text: #111827;
+  --muted: #6b7280;
+  --hover-bg: #f3f4f6;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.5rem;
+}
+
+header p {
+  font-size: 1.3rem;
+  color: var(--muted);
+}
+
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  border: none;
+  font-size: 1.2rem;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: var(--secondary);
+}
+
+.btn-outline {
+  background: var(--card);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: #fff;
+}
+
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+@media(min-width:600px) {
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.category-card {
+  background: var(--card);
+  border-radius: 1rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+  font-size: 1.3rem;
+}
+
+.category-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  background: var(--hover-bg);
+}
+
+.category-icon {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+.category-card:hover .category-icon {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.tooltip {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--primary);
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s, transform 0.3s;
+  font-size: 1rem;
+}
+
+.category-card:hover .tooltip {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-10px);
+}
+
+.category-title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+
+.category-desc {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.chat-page {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  border-radius: 1rem;
+  background: var(--card);
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+}
+
+.chat-header {
+  background: var(--primary);
+  color: #fff;
+  padding: 1.2rem;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  font-size: 1.2rem;
+}
+
+.chat-message {
+  max-width: 75%;
+  padding: 0.75rem 1rem;
+  border-radius: 1rem;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+.chat-message.user {
+  align-self: flex-end;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
+  color: #fff;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.chat-message.assistant {
+  align-self: flex-start;
+  background: #f3f4f6;
+  color: var(--text);
+  border-bottom-left-radius: 0.25rem;
+}
+
+.chat-input-area {
+  display: flex;
+  padding: 0.75rem;
+  border-top: 1px solid #e5e7eb;
+  background: #fafafa;
+}
+
+.chat-input {
+  flex: 1;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid #d1d5db;
+  resize: none;
+  font-size: 1.2rem;
+}
+
+.chat-input:focus {
+  outline: 2px solid var(--primary);
+  border-color: transparent;
+}
+
+.send-btn {
+  margin-left: 0.5rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0 1.2rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  font-size: 1.2rem;
+}
+
+.send-btn:hover {
+  opacity: 0.9;
+}
+
+.hidden {
+  display: none;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 2rem 0 1rem 0;
+  text-align: center;
+}
