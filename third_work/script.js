@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         setTimeout(() => { if (joined) joinMessage.style.display = 'none'; }, 3000);
     });
-ㄴ
     // [공통 함수] 지도 초기화 및 마커 표시 함수
     // centerLat, centerLon: 지도의 중심 좌표
     function searchNearbyBins(centerLat, centerLon, locationName = "지정 위치") {
@@ -212,4 +211,5 @@ keywords.forEach(keyword => {
             searchRegionBtn.click();
         }
     });
+
 });
