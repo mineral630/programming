@@ -211,5 +211,4 @@ keywords.forEach(keyword => {
             searchRegionBtn.click();
         }
     });
-
 });
