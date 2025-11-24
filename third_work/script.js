@@ -1,13 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. DOM 요소 가져오기 (수정: name-input, phone-input 추가)
+    // 1. DOM 요소 가져오기
     const joinButton = document.getElementById('join-campaign-btn');
     const joinMessage = document.getElementById('join-message');
-    const nameInput = document.getElementById('name-input'); // 추가
-    const phoneInput = document.getElementById('phone-input'); // 추가
+    const nameInput = document.getElementById('name-input');
+    const phoneInput = document.getElementById('phone-input');
+    const agreeTermsCheckbox = document.getElementById('agree-terms'); 
     
-    const findWasteBtn = document.getElementById('find-waste-btn'); // 현재 위치 버튼
-    const searchRegionBtn = document.getElementById('search-region-btn'); // 지역 검색 버튼
-    const searchInput = document.getElementById('search-input'); // 검색어 입력창
+    const findWasteBtn = document.getElementById('find-waste-btn'); 
+    const searchRegionBtn = document.getElementById('search-region-btn'); 
+    const searchInput = document.getElementById('search-input'); 
     const mapContainer = document.getElementById('map-container');
     const finderMessage = document.getElementById('finder-message');
     
@@ -16,62 +17,62 @@ document.addEventListener('DOMContentLoaded', () => {
     const showArticlesBtn = document.getElementById('show-articles-btn');
     const galleryContainer = document.querySelector('.environmental-impact-gallery');
 
-    let joined = false;
-    let map = null; // 지도 객체를 전역으로 관리
+    let joined = false; 
+    let map = null; 
     let currentInfoWindow = null;   
 
     // 고정된 키워드 및 연결 URL 정의
-    const fixedIssue = { keyword: "기후 변화", url: "example.html" };
+    const fixedIssue = { keyword: "기후 변화", url: "climate_change.html" };
 
     // '다른 주제 보기' 버튼 클릭 이벤트 (고정 URL 연결 기능)
     if (nextImpactImageBtn) {
-        
-        // 초기 설정: 고정 키워드를 적용
         galleryContainer.setAttribute('data-keyword', fixedIssue.keyword);
         
         nextImpactImageBtn.addEventListener('click', () => {
-            
-            // 1. 키워드 업데이트 (고정 키워드 유지)
             galleryContainer.setAttribute('data-keyword', fixedIssue.keyword);
-            
-            // 2. 고정된 URL로 이동
             window.location.href = fixedIssue.url; 
         });
     }
 
-    // 2. 🟢 [수정] 실천 서약하기 로직 (이름 확인 및 메시지 표시)
+    // 2. 실천 서약하기 로직 
     joinButton.addEventListener('click', () => {
         const name = nameInput.value.trim();
         
         if (name === "") {
             joinMessage.innerText = "⚠️ 서약을 위해 이름을 입력해주세요.";
             joinMessage.style.display = 'block';
-            joinMessage.style.color = '#dc3545'; // 빨간색 경고
+            joinMessage.style.color = '#dc3545';
             setTimeout(() => { joinMessage.style.display = 'none'; }, 3000);
-            return; // 이름이 없으면 여기서 종료
+            return; 
+        }
+
+        if (!agreeTermsCheckbox.checked) {
+            joinMessage.innerText = "⚠️ 실천 서약 약관에 동의하셔야 캠페인에 참여할 수 있습니다.";
+            joinMessage.style.display = 'block';
+            joinMessage.style.color = '#dc3545';
+            setTimeout(() => { joinMessage.style.display = 'none'; }, 3000);
+            return; 
         }
         
-        if (!joined) {
+        if (joined) {
+            joinMessage.innerText = `${name} 님은 이미 서약에 참여하셨습니다. 지금 바로 실천을 시작하세요!`;
+            joinMessage.style.color = '#007bff';
+            joinMessage.style.display = 'block';
+            
+        } else {
             joinMessage.innerText = `${name} 님! 서약해주셔서 감사합니다. 당신의 실천이 지구를 지키는 큰 힘이 됩니다.`;
             joinMessage.style.display = 'block';
             joinMessage.style.color = '#28a745';
             joinButton.innerText = '서약 완료 ✔️';
             joinButton.disabled = true;
             joined = true;
-            
-            // 전화번호는 저장 로직 없이 단순 입력만 받음.
-            // 필요하다면 이곳에 서버로 데이터를 전송하는 로직을 추가해야 함.
-            
-        } else {
-            joinMessage.innerText = `이미 서약에 참여하셨습니다. 지금 바로 실천을 시작하세요!`;
-            joinMessage.style.color = '#007bff';
-            joinMessage.style.display = 'block';
         }
-        setTimeout(() => { if (joined) joinMessage.style.display = 'none'; }, 3000);
+        
+        setTimeout(() => { joinMessage.style.display = 'none'; }, 5000);
     });
 
     // ============================================================
-    // 🗺️ 지도 및 검색 핵심 로직 (변화 없음)
+    // 🗺️ 지도 및 검색 핵심 로직 (중고폰 필터링 추가)
     // ============================================================
 
     // [공통 함수] 지도 초기화 및 마커 표시 함수
@@ -107,7 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const ps = new kakao.maps.services.Places(map);
-        const keywords = ["쓰레기통", "분리수거", "공공 수거함"];
+        // 🟢 [수정] 중고 키워드 포함
+        const keywords = ["쓰레기통", "분리수거", "수거함", "재활용", "수거함", "제로샵", "캔수거", "페트", "중고", "나눔터"];
         let resultCount = 0;
         let searchCompleteCount = 0;
 
@@ -116,10 +118,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 searchCompleteCount++;
 
                 if (status === kakao.maps.services.Status.OK) {
-                    resultCount += data.length;
                     
-                    for (let i = 0; i < data.length; i++) {
-                        const place = data[i];
+                    // 🟢 [추가된 핵심 로직] 중고폰 관련 결과 필터링
+                    const filteredData = data.filter(place => {
+                        // 장소 이름(place_name)에 '중고폰', '폰', '휴대폰'이 포함된 경우 제외
+                        const name = place.place_name.toLowerCase();
+                        if (name.includes('중고폰') || name.includes('폰') || name.includes('명품') || name.includes('스마트폰')) {
+                            return false; // 제외
+                        }
+                        return true; // 포함
+                    });
+                    // 🟢 필터링된 데이터 사용
+                    resultCount += filteredData.length;
+                    
+                    for (let i = 0; i < filteredData.length; i++) {
+                        const place = filteredData[i]; // 필터링된 장소 데이터 사용
+
                         const marker = new kakao.maps.Marker({
                             map: map,
                             position: new kakao.maps.LatLng(place.y, place.x),
@@ -238,6 +252,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
 
 });
