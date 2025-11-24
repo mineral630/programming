@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentInfoWindow = null;   
 
     // 고정된 키워드 및 연결 URL 정의
-    const fixedIssue = { keyword: "기후 변화", url: "climate_change.html" }; // 예시: 파일명을 'example.html'에서 'climate_change.html'로 다시 변경
+    const fixedIssue = { keyword: "기후 변화", url: "example.html" };
 
     // '다른 주제 보기' 버튼 클릭 이벤트 (고정 URL 연결 기능)
     if (nextImpactImageBtn) {
@@ -238,5 +238,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
 
 });
