@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>지구 지킴이 캠페인: 작은 실천, 큰 변화</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript"
+        src="//dapi.kakao.com/v2/maps/sdk.js?appkey=888e25975fea9c017b237b0e09eef9c7&libraries=services"></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="container">
+            <h1>푸른 지구 캠페인 🌱</h1>
+            <p>우리의 작은 실천이 지구를 살립니다.</p>
+        </div>
+        <nav class="toc-nav">
+            <ul>
+                <li><a href="#issue">환경 문제</a></li>
+                <li><a href="#action">실천 방법</a></li>
+                <li><a href="#waste-finder">수거함 찾기</a></li>
+                <li><a href="#join">서약하기</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+
+        <section id="hero" class="hero-section">
+            <h2>지금, 지구는 당신의 도움이 필요합니다.</h2>
+            <p>기후 변화, 플라스틱 오염, 그리고 생물 다양성 손실. 더 이상 미룰 수 없습니다.</p>
+            <a href="#action" class="btn primary-btn">나의 실천 시작하기</a>
+        </section>
+
+<section id="issue" class="issue-section">
+            <h2 class="section-title">주요 환경 문제</h2>
+            <p style="text-align: center; margin-bottom: 20px;">우리가 직면한 심각한 환경 문제들을 이해하고, 그 심각성을 느껴보세요.</p>
+
+            <div class="environmental-impact-gallery" data-keyword="기후 변화">
+                 <div class="gallery-buttons">
+                    <button class="btn secondary-btn gallery-btn" id="next-impact-image-btn" style="margin-right: 15px;">관련 사진 보기</button>
+                    <button class="btn primary-btn gallery-btn" id="show-articles-btn">관련 기사 보기</button>
+                </div>
+            </div>
+            <div class="issue-cards">
+                <div class="card">
+                    <h3>🌡️ 기후 변화</h3>
+                    <p>화석 연료 사용으로 인한 온실가스 증가가 지구 온도를 높이고 있습니다. 이는 극심한 기상이변을 초래합니다.</p>
+                </div>
+                <div class="card">
+                    <h3>🗑️ 플라스틱 오염</h3>
+                    <p>바다로 흘러 들어간 플라스틱 쓰레기는 해양 생태계를 위협하며, 결국 미세 플라스틱으로 우리 식탁까지 돌아옵니다.</p>
+                </div>
+                <div class="card">
+                    <h3>🌳 산림 파괴</h3>
+                    <p>개발과 벌목으로 인해 숲이 사라지면서 야생 동물의 서식지가 파괴되고, 이산화탄소 흡수 능력이 감소하고 있습니다.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="action" class="action-section">
+            <h2 class="section-title">작은 실천, 큰 변화</h2>
+            <div class="action-list">
+                <div class="action-item">
+                    <h4>1. 일회용품 줄이기</h4>
+                    <p>개인 텀블러와 장바구니 사용을 생활화하세요.</p>
+                </div>
+                <div class="action-item">
+                    <h4>2. 대중교통 이용</h4>
+                    <p>가까운 거리는 걷거나 자전거를 타고, 장거리는 대중교통을 이용해 탄소 배출을 줄입니다.</p>
+                </div>
+                <div class="action-item">
+                    <h4>3. 올바른 분리수거</h4>
+                    <p>재활용품을 깨끗하게 씻어 배출하고, 재활용 불가 쓰레기는 종량제 봉투에 버립니다.</p>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="waste-finder" class="finder-section">
+            <h2 class="section-title">📍 내 주변 쓰레기통/분리수거 위치 찾기</h2>
+            <p>현재 위치 혹은 특정 지역을 검색하여 가까운 공공 수거 장소를 찾아보세요.</p>
+
+            <div class="search-box-wrapper">
+                <input type="text" id="search-input" placeholder="예: 강남역, 한강공원">
+                <button class="btn secondary-btn" id="search-region-btn">지역으로 이동 & 검색</button>
+            </div>
+
+            <button class="btn primary-btn" id="find-waste-btn">📍 현재 위치에서 찾기</button>
+
+            <div id="map-container"
+                style="height: 400px; margin-top: 20px; border: 1px solid var(--border-color); border-radius: 8px; display: none;">
+            </div>
+            <p id="finder-message" style="margin-top: 15px; font-weight: 700; display: none;"></p>
+        </section>
+
+
+<section id="join" class="join-section">
+    <h2 class="section-title">캠페인에 동참하세요</h2>
+    <p>지구를 위한 실천을 서약하고, 커뮤니티 활동에 참여하여 힘을 모아주세요!</p>
+
+    <div class="join-form" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
+        <input type="text" id="name-input" placeholder="이름을 입력해주세요" required style="max-width: 300px; width: 100%;">
+    </div>
+
+    <div class="terms-of-service">
+        <h4>🌍 지구 지킴이 실천 서약 약관</h4>
+        <div class="terms-content">
+            <p>
+                본인은 '푸른 지구 캠페인'에 동참하여 다음과 같은 실천을 약속합니다.
+            </p>
+            <ul>
+                <li>**지속 가능한 소비:** 과도한 일회용품 사용을 지양하고, 재활용 가능한 제품을 선택합니다.</li>
+                <li>**에너지 절약:** 사용하지 않는 전자제품 플러그를 뽑고, 불필요한 조명은 끕니다.</li>
+                <li>**친환경 이동:** 가까운 거리는 걷거나 자전거를 이용하고, 대중교통 이용을 생활화합니다.</li>
+                <li>**올바른 분리수거:** 쓰레기 배출 시 내용물을 비우고 깨끗하게 헹구어 배출합니다.</li>
+            </ul>
+            <p style="margin-top: 10px;">
+                * 위 서약은 강제성이 없으며, 오직 개인의 자발적인 의지로 지구 환경 보호에 동참함을 의미합니다.
+            </p>
+        </div>
+        <div class="terms-check">
+            <input type="checkbox" id="agree-terms">
+            <label for="agree-terms">위 서약 내용을 확인하고 실천에 동의합니다.</label>
+        </div>
+    </div>
+    <button class="btn secondary-btn" id="join-campaign-btn">실천 서약하기</button>
+    <p id="join-message" style="margin-top: 15px; font-weight: 700; display: none;"></p>
+</section>
+
+    </main>
+
+<footer>
+    <div class="container">
+        <div class="footer-qr-section">
+            <img src="https://via.placeholder.com/120?text=QR+Code" alt="사이트 접속 QR코드" class="qr-code-img">
+            <p>스마트폰으로 스캔하여 모바일로 접속하세요!</p>
+        </div>
+
+        <p class="copyright">&copy; 2025 지구 지킴이 캠페인. 모든 권리 보유.</p>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

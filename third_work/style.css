@@ -1,0 +1,539 @@
+/* 1. 폰트 정의: 경기천년제목 (GyeonggiTitleM) */
+@font-face {
+    font-family: 'GyeonggiTitleM';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiTitleM.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 2. 폰트 정의: 경기천년바탕 (본문용 가독성 확보) */
+@font-face {
+    font-family: 'GyeonggiBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+:root {
+    /* 색상 팔레트 개선: 조금 더 차분하고 신뢰감을 주는 톤 */
+    --primary-green: #2E8B57; /* SeaGreen: 깊이 있는 녹색 */
+    --primary-hover: #1E6640; 
+    --secondary-blue: #4682B4; /* SteelBlue: 차분한 파란색 */
+    --secondary-hover: #315F85;
+    --background-light: #F0F4F3; /* 아주 연한 민트 그레이 */
+    --card-bg: #ffffff;
+    --text-main: #2c3e50;
+    --text-muted: #6c757d;
+    --border-radius: 12px; /* 둥근 모서리 통일 */
+    --box-shadow: 0 10px 20px rgba(0,0,0,0.05); /* 부드러운 그림자 */
+}
+
+html {
+    scroll-behavior: smooth; /* 목차 클릭 시 부드럽게 스크롤 */
+}
+
+body {
+    font-family: 'GyeonggiBatang', 'Noto Sans KR', serif; /* 본문은 읽기 편한 바탕체 계열 */
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-light);
+    color: var(--text-main);
+    line-height: 1.7;
+    word-break: keep-all; /* 한글 단어 끊김 방지 */
+}
+
+/* 제목 폰트 적용 (경기천년제목) */
+h1, h2, h3, h4, .btn, nav a {
+    font-family: 'GyeonggiTitleM', sans-serif;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header & Nav Styling */
+header {
+    background: linear-gradient(135deg, var(--primary-green), #4CA1AF);
+    color: white;
+    padding: 3rem 0 1rem;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+header h1 {
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+}
+
+header p {
+    font-size: 1.3rem;
+    margin-top: 10px;
+    opacity: 0.9;
+}
+
+/* 목차 (네비게이션) 스타일 */
+.toc-nav {
+    margin-top: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(5px);
+    display: inline-block;
+    padding: 10px 30px;
+    border-radius: 50px;
+}
+
+.toc-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 30px;
+}
+
+.toc-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: color 0.3s, transform 0.2s;
+    display: block;
+}
+
+.toc-nav a:hover {
+    color: #ffeb3b; /* 강조색: 노랑 */
+    transform: translateY(-2px);
+}
+
+/* Sections Common */
+section {
+    padding: 60px 0;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.2rem;
+    color: var(--primary-green);
+    margin-bottom: 40px; /* 아래 여백 */
+    position: relative;
+    
+    /* [수정된 부분] 중앙 정렬 로직 변경 */
+    display: table;      /* 글자 크기에 맞춰 박스 크기 조절 */
+    margin-left: auto;   /* 왼쪽 여백 자동 (가운데 정렬) */
+    margin-right: auto;  /* 오른쪽 여백 자동 (가운데 정렬) */
+    
+    /* 기존에 있던 left: 50%, transform... 속성은 삭제되었습니다 */
+}
+
+/* 제목 밑줄 장식 */
+.section-title::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 4px;
+    background-color: var(--secondary-blue);
+    margin: 15px auto 0;
+    border-radius: 2px;
+}
+
+/* Hero Section */
+.hero-section {
+    background-color: white;
+    padding: 80px 40px;
+    margin-top: 40px;
+    border-radius: var(--border-radius);
+    text-align: center;
+    box-shadow: var(--box-shadow);
+    border: 1px solid #eef2f3;
+}
+
+.hero-section h2 {
+    font-size: 2.5rem;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    margin-bottom: 40px;
+}
+
+/* Issue Cards */
+.issue-cards {
+    display: flex;
+    gap: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.issue-cards .card {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    width: calc(33.333% - 25px);
+    min-width: 280px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border-top: 5px solid var(--secondary-blue); /* 상단 포인트 컬러 */
+}
+
+.issue-cards .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+}
+
+.issue-cards .card h3 {
+    font-size: 1.6rem;
+    margin-top: 0;
+    color: var(--text-main);
+}
+
+/* Action List */
+.action-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+.action-item {
+    background-color: white;
+    border-left: 6px solid var(--primary-green);
+    padding: 25px;
+    border-radius: 8px; /* 오른쪽만 둥글게 */
+    box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+    transition: background-color 0.3s;
+}
+
+.action-item:hover {
+    background-color: #f8fffa;
+}
+
+.action-item h4 {
+    color: var(--primary-green);
+    margin-top: 0;
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+}
+
+/* Waste Finder Section */
+.finder-section {
+    background-color: white;
+    padding: 50px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    text-align: center;
+    border: 1px solid #e1e8ed;
+}
+
+#map-container {
+    height: 450px;
+    width: 100%;
+    margin-top: 30px;
+    border-radius: 15px; /* 지도 모서리 둥글게 */
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Join Section */
+.join-section {
+    text-align: center;
+    background: linear-gradient(to right, #eef2f3, #8e9eab); /* 그라데이션 배경 */
+    border-radius: var(--border-radius);
+    padding: 60px 20px;
+    color: var(--text-main);
+}
+
+/* Buttons */
+.btn {
+    padding: 14px 35px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.primary-btn {
+    background-color: var(--primary-green);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(46, 139, 87, 0.3);
+}
+
+.secondary-btn {
+    background-color: var(--secondary-blue);
+    color: white;
+}
+
+.secondary-btn:hover {
+    background-color: var(--secondary-hover);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(70, 130, 180, 0.3);
+}
+
+/* Inputs */
+input[type="text"] {
+    padding: 14px 20px;
+    border: 2px solid #ddd;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s;
+    font-family: 'GyeonggiBatang', sans-serif;
+}
+
+input[type="text"]:focus {
+    border-color: var(--secondary-blue);
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 40px 0;
+    margin-top: 60px;
+    background-color: #2c3e50;
+    color: #bdc3c7;
+    font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .issue-cards .card {
+        width: 100%;
+    }
+    
+    .toc-nav ul {
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    header h1 {
+        font-size: 2.2rem;
+    }
+}
+/* 1. 검색창 래퍼 스타일 (HTML에서 옮겨온 것) */
+.search-box-wrapper {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+/* 2. 태블릿 및 모바일 공통 (768px 이하) */
+@media (max-width: 768px) {
+    /* 전체 컨테이너 여백 축소 */
+    .container {
+        padding: 0 15px;
+    }
+    
+    section {
+        padding: 40px 0;
+    }
+
+    /* 헤더 폰트 사이즈 조절 */
+    header h1 {
+        font-size: 2.2rem;
+    }
+    
+    header p {
+        font-size: 1rem;
+    }
+
+    /* 네비게이션: 모바일에서 줄바꿈 허용 및 간격 조절 */
+    .toc-nav {
+        padding: 10px 15px;
+        width: 90%; /* 화면 꽉 차게 */
+        box-sizing: border-box;
+    }
+
+    .toc-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px 15px; /* 세로 가로 간격 */
+    }
+
+    .toc-nav a {
+        font-size: 1rem;
+        padding: 5px; /* 터치 영역 확보 */
+    }
+
+    /* 카드 레이아웃: 2열 또는 1열로 변경 */
+    .issue-cards .card {
+        width: 100%; /* 모바일에서는 꽉 차게 */
+        margin-bottom: 20px;
+    }
+
+    /* 실천 방법 리스트: 1열로 변경 */
+    .action-list {
+        grid-template-columns: 1fr; /* 한 줄에 하나씩 */
+    }
+
+    /* 검색창 내부 입력 필드 */
+    #search-input {
+        width: 100%; /* 검색창 꽉 차게 */
+        max-width: 300px; /* 너무 커지지 않게 제한 */
+    }
+}
+
+/* 3. 스마트폰 모바일 전용 (480px 이하) */
+@media (max-width: 480px) {
+    header h1 {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.8rem;
+    }
+
+    /* [수정 핵심] 검색창 감싸는 박스 스타일 재정의 */
+    .search-box-wrapper {
+        flex-direction: column;   /* 세로 배치 */
+        align-items: stretch;     /* 내부 요소(버튼, 인풋)를 가로로 꽉 차게 늘림 */
+        width: 100%;              /* 박스 자체도 화면 꽉 차게 */
+        gap: 10px;                /* 사이 간격 */
+    }
+
+    /* 입력창 스타일 */
+    #search-input {
+        width: 100%;              /* 가로 꽉 채우기 */
+        max-width: none;          /* 최대 너비 제한 해제 */
+        margin: 0;                /* 불필요한 마진 초기화 (gap으로 대체) */
+        box-sizing: border-box;   /* 테두리 포함 크기 계산 */
+    }
+
+    /* 모든 버튼 스타일 (지역 검색 버튼 & 현재 위치 버튼) */
+    .btn {
+        width: 100%;              /* 가로 꽉 채우기 */
+        display: block;           /* 블록 요소로 변경 */
+        margin-bottom: 10px;      /* 하단 여백 */
+        box-sizing: border-box;   /* 테두리 포함 크기 계산 */
+    }
+    
+    /* 지도 높이 조절 */
+    #map-container {
+        height: 300px;
+    }
+
+    /* 영웅 섹션(Hero) 패딩 축소 */
+    .hero-section {
+        padding: 40px 20px;
+    }
+}
+footer {
+    padding: 50px 0 30px; /* 위쪽 여백을 좀 더 줌 */
+}
+
+/* QR 코드 섹션 래퍼 */
+.footer-qr-section {
+    margin-bottom: 30px; /* 저작권 문구와의 간격 */
+}
+
+/* QR 코드 이미지 스타일 */
+.qr-code-img {
+    width: 120px; /* 적당한 크기 설정 */
+    height: 120px;
+    background-color: white; /* 투명 배경 QR일 경우를 대비해 흰색 배경 추가 */
+    padding: 10px; /* 흰색 테두리 느낌 */
+    border-radius: 12px; /* 둥근 모서리 */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2); /* 부드러운 그림자로 입체감 */
+}
+
+/* QR 코드 아래 안내 문구 */
+.footer-qr-section p {
+    margin-top: 15px;
+    font-size: 1rem;
+    color: #bdc3c7; /* 기존 푸터 텍스트 색상과 통일 */
+    font-weight: normal;
+}
+
+/* 기존 저작권 문구 스타일 미세 조정 */
+.copyright {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+/* 4. 데스크탑 전용 (769px 이상) *//* QR코드 이미지 클래스 */
+.qr-code {
+  width: 100px;
+  transition: transform 0.3s ease; /* 부드러운 움직임 */
+}
+
+/* 마우스를 올렸을 때 */
+.qr-code:hover {
+  transform: scale(1.1); /* 1.1배 커짐 */
+  border: 2px solid #333; /* 테두리 생김 */
+  cursor: pointer;
+}
+/* 환경 문제 이미지 갤러리 스타일 */
+.environmental-impact-gallery {
+    position: relative;
+    width: 100%;
+    max-width: 800px; /* 최대 너비 설정 */
+    margin: 40px auto 60px auto;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    background-color: var(--background-light); /* 배경색 추가 */
+    display: flex; /* 이미지와 버튼을 Flex로 정렬 */
+    flex-direction: column; /* 세로 정렬 */
+    align-items: center; /* 가운데 정렬 */
+    padding-bottom: 20px; /* 버튼과의 여백 */
+}
+
+.impact-image-item {
+    width: 100%;
+    max-height: 450px; /* 이미지 높이 제한 */
+    object-fit: cover; /* 이미지가 잘리지 않고 채워지도록 */
+    display: none; /* 기본적으로 모두 숨김 */
+    transition: opacity 0.5s ease-in-out;
+}
+
+.impact-image-item.active {
+    display: block; /* 활성화된 이미지만 보임 */
+    opacity: 1;
+}
+
+.environmental-impact-gallery .gallery-btn {
+    margin-top: 25px; /* 이미지 아래 여백 */
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    background-color: var(--secondary-blue); /* 예시 보기 버튼 색상 */
+    border: none;
+    color: white;
+    border-radius: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease;
+}
+
+.environmental-impact-gallery .gallery-btn:hover {
+    background-color: #386d94; /* 호버 시 색상 변경 */
+}
+
+/* 모바일 반응형에 대한 추가 스타일 */
+@media (max-width: 768px) {
+    .environmental-impact-gallery {
+        margin: 30px auto 40px auto;
+        border-radius: 10px;
+    }
+    .impact-image-item {
+        max-height: 300px;
+    }
+    .environmental-impact-gallery .gallery-btn {
+        margin-top: 20px;
+        font-size: 1rem;
+        padding: 10px 25px;
+    }
+}

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기후 변화: 피해 사실 상세</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css"> 
+    
+    <style>
+        /* 갤러리 섹션 */
+        .impact-detail-section {
+            padding: 80px 20px;
+            background-color: var(--background-light);
+            text-align: center;
+        }
+
+        /* 이미지 컨테이너 (오버랩 구현을 위한 상대 위치) */
+        .image-overlay-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            height: 400px; /* 고정 높이 설정 */
+            margin: 40px auto 30px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 이미지 스타일 (오버랩) */
+        .impact-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0; /* 기본적으로 숨김 */
+            transition: opacity 1.5s ease-in-out; /* 부드러운 전환 효과 */
+        }
+
+        .impact-image.active {
+            opacity: 1; /* 활성화 시 표시 */
+        }
+
+        .gallery-nav-buttons {
+            margin-top: 30px;
+        }
+
+        .gallery-nav-buttons button {
+            padding: 10px 25px;
+            font-size: 1.1rem;
+            margin: 0 10px;
+        }
+        
+        /* 홈 버튼 */
+        .home-btn {
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <h1>기후 변화: 지구의 고통</h1>
+            <p>데이터가 아닌, 눈으로 보는 피해 사실들.</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="impact-detail-section">
+            <h2 class="section-title" style="color: #c0392b;">심각한 환경 피해 사례</h2>
+            <p>사진을 전환하여 환경 파괴의 다양한 양상을 확인하세요.</p>
+            
+            <div class="image-overlay-container">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003554553.png" alt="아마존 산림 파괴" data-caption="🌳 급속한 아마존 산림 파괴 (1975년 vs 2002년)">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003601482.png" alt="아랄해 면적 감소" data-caption="💧 아랄해 면적 급감 (물 부족 및 기후 변화의 상징)">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003609990.png" alt="중국 황사 및 사막화" data-caption="💨 동아시아를 뒤덮는 광범위한 황사 및 사막화 가속">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003625143.png" alt="삼각주 지형 변화" data-caption="🌊 대규모 삼각주 지형의 급격한 변화 (해수면 상승 및 개발 영향)">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003754617.png" alt="해양 플라스틱 쓰레기" data-caption="🗑️ 바다를 떠다니는 플라스틱 쓰레기 (해양 오염의 심각성)">
+                <img class="impact-image" src="https://mineral630.github.io/programming/third_work/KakaoTalk_20251124_003741948.png" alt="플라스틱에 갇힌 해양 동물" data-caption="🐬 플라스틱 그물에 갇힌 돌고래 (생물 생존 위협)">
+            </div>
+            
+            <p id="image-caption" style="font-size: 1.3rem; font-weight: bold; color: var(--text-main); margin-bottom: 20px;">
+                </p>
+            
+            <div class="gallery-nav-buttons">
+                <button class="btn secondary-btn" id="prev-image-btn">⬅️ 이전 사진</button>
+                <button class="btn primary-btn" id="next-image-btn">다음 사진 ➡️</button>
+            </div>
+            
+            <a href="index.html#issue" class="btn secondary-btn home-btn">🏡 메인 페이지로 돌아가기</a>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 지구 지킴이 캠페인. 피해 사실 기록.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const images = document.querySelectorAll('.impact-image');
+            const captionElement = document.getElementById('image-caption');
+            const prevBtn = document.getElementById('prev-image-btn');
+            const nextBtn = document.getElementById('next-image-btn');
+            let currentIndex = 0;
+
+            if (images.length === 0) return;
+
+            // 이미지와 캡션을 표시하는 함수
+            function showImage(index) {
+                // 모든 이미지의 active 클래스 제거 (숨김)
+                images.forEach(img => img.classList.remove('active'));
+                
+                // 현재 인덱스의 이미지에 active 클래스 추가 (표시)
+                const currentImage = images[index];
+                currentImage.classList.add('active');
+                
+                // 캡션 업데이트
+                captionElement.textContent = currentImage.getAttribute('data-caption');
+            }
+
+            // 다음 이미지로 전환
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            });
+
+            // 이전 이미지로 전환
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                showImage(currentIndex);
+            });
+
+            // 페이지 로드 시 첫 번째 이미지 표시
+            showImage(currentIndex);
+        });
+    </script>
+</body>
+</html>
