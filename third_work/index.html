@@ -100,18 +100,38 @@
         </section>
 
 
-        <section id="join" class="join-section">
-            <h2 class="section-title">캠페인에 동참하세요</h2>
-            <p>지구를 위한 실천을 서약하고, 커뮤니티 활동에 참여하여 힘을 모아주세요!</p>
+<section id="join" class="join-section">
+    <h2 class="section-title">캠페인에 동참하세요</h2>
+    <p>지구를 위한 실천을 서약하고, 커뮤니티 활동에 참여하여 힘을 모아주세요!</p>
 
-            <div class="join-form" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
-                <input type="text" id="name-input" placeholder="이름을 입력해주세요" required style="max-width: 300px; width: 100%;">
-                <input type="text" id="phone-input" placeholder="전화번호를 입력해주세요" required style="max-width: 300px; width: 100%;">
-            </div>
+    <div class="join-form" style="display: flex; flex-direction: column; align-items: center; gap: 15px; margin-bottom: 25px;">
+        <input type="text" id="name-input" placeholder="이름을 입력해주세요" required style="max-width: 300px; width: 100%;">
+    </div>
 
-            <button class="btn secondary-btn" id="join-campaign-btn">실천 서약하기</button>
-            <p id="join-message" style="margin-top: 15px; font-weight: 700; display: none;"></p>
-        </section>
+    <div class="terms-of-service">
+        <h4>🌍 지구 지킴이 실천 서약 약관</h4>
+        <div class="terms-content">
+            <p>
+                본인은 '푸른 지구 캠페인'에 동참하여 다음과 같은 실천을 약속합니다.
+            </p>
+            <ul>
+                <li>**지속 가능한 소비:** 과도한 일회용품 사용을 지양하고, 재활용 가능한 제품을 선택합니다.</li>
+                <li>**에너지 절약:** 사용하지 않는 전자제품 플러그를 뽑고, 불필요한 조명은 끕니다.</li>
+                <li>**친환경 이동:** 가까운 거리는 걷거나 자전거를 이용하고, 대중교통 이용을 생활화합니다.</li>
+                <li>**올바른 분리수거:** 쓰레기 배출 시 내용물을 비우고 깨끗하게 헹구어 배출합니다.</li>
+            </ul>
+            <p style="margin-top: 10px;">
+                * 위 서약은 강제성이 없으며, 오직 개인의 자발적인 의지로 지구 환경 보호에 동참함을 의미합니다.
+            </p>
+        </div>
+        <div class="terms-check">
+            <input type="checkbox" id="agree-terms">
+            <label for="agree-terms">위 서약 내용을 확인하고 실천에 동의합니다.</label>
+        </div>
+    </div>
+    <button class="btn secondary-btn" id="join-campaign-btn">실천 서약하기</button>
+    <p id="join-message" style="margin-top: 15px; font-weight: 700; display: none;"></p>
+</section>
 
     </main>
 
