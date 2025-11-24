@@ -2,8 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. DOM 요소 가져오기 (수정: name-input, phone-input 추가)
     const joinButton = document.getElementById('join-campaign-btn');
     const joinMessage = document.getElementById('join-message');
-    const nameInput = document.getElementById('name-input'); // 🟢 추가
-    const phoneInput = document.getElementById('phone-input'); // 🟢 추가
+    const nameInput = document.getElementById('name-input'); // 추가
+    const phoneInput = document.getElementById('phone-input'); // 추가
     
     const findWasteBtn = document.getElementById('find-waste-btn'); // 현재 위치 버튼
     const searchRegionBtn = document.getElementById('search-region-btn'); // 지역 검색 버튼
