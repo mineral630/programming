@@ -134,6 +134,7 @@
 </section>
 
     </main>
+    
 
 <footer>
     <div class="container">
@@ -146,8 +147,17 @@
     </div>
 </footer>
 
-    <script src="script.js"></script>
+<div id="qr-modal" class="modal-overlay"> 
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <h3 style="color: var(--primary-green); margin-bottom: 20px;">모바일로 접속하여 참여하기</h3>
+        <p style="margin-bottom: 15px;">QR 코드를 스캔하여 실천 서약 페이지로 이동하세요.</p>
+        
+        <img id="modal-qr-img" src="qrcode.png" alt="캠페인 서약 QR 코드" class="qr-code-large">
+        
+        <p style="margin-top: 10px; font-size: 0.9rem; color: #888;">QR 코드를 다시 클릭하거나 ESC를 눌러 닫을 수 있습니다.</p>
+    </div>
+</div>
+<script src="script.js"></script>
 </body>
 </html>
-
-
