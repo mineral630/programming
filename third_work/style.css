@@ -123,8 +123,6 @@ section {
     display: table;      /* 글자 크기에 맞춰 박스 크기 조절 */
     margin-left: auto;   /* 왼쪽 여백 자동 (가운데 정렬) */
     margin-right: auto;  /* 오른쪽 여백 자동 (가운데 정렬) */
-    
-    /* 기존에 있던 left: 50%, transform... 속성은 삭제되었습니다 */
 }
 
 /* 제목 밑줄 장식 */
@@ -535,5 +533,74 @@ footer {
         margin-top: 20px;
         font-size: 1rem;
         padding: 10px 25px;
+    }
+}
+.modal-overlay {
+    display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* 배경 블러 효과 및 어둡게 처리 */
+    background: rgba(0, 0, 0, 0.4); 
+    backdrop-filter: blur(8px); /* 블러 처리 */
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex; 
+    opacity: 1;
+}
+
+.modal-content {
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    max-width: 90%;
+    position: relative;
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
+}
+
+.modal-overlay.active .modal-content {
+    transform: scale(1);
+}
+
+.qr-code-large {
+    width: 250px;
+    height: 250px;
+    background-color: white;
+    padding: 15px;
+    border: 5px solid var(--primary-green);
+    border-radius: 15px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    font-size: 30px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: var(--primary-green);
+}
+
+/* 모바일 환경 최적화 */
+@media (max-width: 480px) {
+    .qr-code-large {
+        width: 200px;
+        height: 200px;
     }
 }
