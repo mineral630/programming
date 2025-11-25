@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentInfoWindow = null;   
 
     // 고정된 키워드 및 연결 URL 정의
-    const fixedIssue = { keyword: "기후 변화", url: "example.html" };
+    const fixedIssue = { keyword: "기후 변화", url: "climate_change.html" };
 
     // '다른 주제 보기' 버튼 클릭 이벤트 (고정 URL 연결 기능)
     if (nextImpactImageBtn) {
@@ -252,6 +252,41 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+    // 6. [추가] QR 코드 모달 기능 구현
+    const qrImageFooter = document.querySelector('.footer-qr-section .qr-code-img');
+    const qrModal = document.getElementById('qr-modal');
+    const qrModalCloseBtn = document.querySelector('#qr-modal .close-btn');
+    const qrModalImg = document.getElementById('modal-qr-img');
 
-});
+    // 푸터 QR 코드 클릭 시 모달 열기
+    if (qrImageFooter && qrModal && qrModalImg) {
+        // 푸터의 QR 코드 src를 모달 이미지에도 복사 (동일한 내용 유지)
+        qrModalImg.src = qrImageFooter.src; 
 
+        qrImageFooter.addEventListener('click', (e) => {
+            e.preventDefault(); // 링크 이동 방지
+            qrModal.classList.add('active');
+        });
+        
+        // 닫기 버튼, 모달 외부, 모달 이미지 클릭 시 닫기
+        const closeModal = () => {
+            qrModal.classList.remove('active');
+        };
+
+        qrModalCloseBtn.addEventListener('click', closeModal);
+        qrModal.addEventListener('click', (e) => {
+            // 오버레이 자체를 클릭했을 때만 닫기 (모달 콘텐츠 클릭 제외)
+            if (e.target.id === 'qr-modal') {
+                closeModal();
+            }
+        });
+        qrModalImg.addEventListener('click', closeModal); // QR 이미지 클릭 시 닫기
+
+        // ESC 키로 모달 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && qrModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
+}); // DOMContentLoaded 닫는 부분 유지
