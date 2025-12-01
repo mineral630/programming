@@ -139,6 +139,14 @@ select:disabled { background-color: #f0f0f0; cursor: not-allowed; color: #aaa; }
 }
 footer { background: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
 
+/* 👇👇 QR 코드 반응형 스타일 추가 👇👇 */
+#modal-qr-img {
+    max-width: 100%; /* 화면이 좁아지면 이미지도 같이 줄어듦 */
+    height: auto;    /* 너비가 줄어들 때 높이 비율 유지 */
+    margin: 20px 0;  /* 위아래 여백 */
+    border-radius: 10px; /* 모서리 살짝 둥글게 (선택사항) */
+}
+
 
 /* ⭐⭐⭐ 모달 스타일 ⭐⭐⭐ */
 .modal {
@@ -315,5 +323,22 @@ footer { background: #333; color: white; text-align: center; padding: 30px 0; ma
     /* 텍스트 가독성 확보 */
     .container {
         padding: 0 15px;
+    }
+}
+@media (max-width: 768px) {
+    
+    /* ... (기존 모바일 스타일들) ... */
+
+    /* 텍스트 가독성 확보 */
+    .container {
+        padding: 0 15px;
+    }
+
+    /* 👇👇 여기부터 추가하세요 👇👇 */
+    
+    /* 6. 모바일에서 QR 코드 크기 조정 */
+    #modal-qr-img {
+        width: 120px; /* 모바일에서는 300px 대신 180px 정도로 작게 표시 */
+        max-width: 80%; /* 화면이 아주 작을 경우 화면의 80%만 차지 */
     }
 }
