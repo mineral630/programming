@@ -72,9 +72,7 @@ async function fetchAnimals() {
 
         // 🚀 [핵심 수정] CORS 에러를 피하기 위해 allorigins.win 사용
         // 이 친구는 Access-Control-Allow-Origin: * (모두 허용)을 해줍니다.
-        const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`;
-
-        const response = await fetch(proxyUrl);
+        const response = await fetch(targetUrl);
         if (!response.ok) throw new Error("네트워크 응답 실패");
 
         const textData = await response.text();
@@ -220,4 +218,5 @@ function nextMbti(step, type) {
     document.getElementById('mbti-result').style.display = 'block';
     const text = document.getElementById('mbti-result-text');
     text.innerHTML = type === 'active' ? "🐶 활발한 믹스견!" : "🐱 조용한 고양이!";
+
 }
