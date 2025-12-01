@@ -1,13 +1,33 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
     <title>따뜻한 동반자 - 유기동물 입양</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" as="image" href="hero-image.png" fetchpriority="high">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    </noscript>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="style.css">
+    </noscript>
+
+
     <script src="script.js" defer></script>
 </head>
+
 <body>
 
     <header>
@@ -24,12 +44,16 @@
     </header>
 
     <section id="home" class="hero">
+        <img src="hero-image.png" class="hero-bg" alt="강아지와 함께하는 행복한 모습" fetchpriority="high" decoding="async"
+            width="1200" height="400">
+
         <div class="hero-text">
             <h2>가족을 입양하세요</h2>
             <p>작은 생명에게 두 번째 기회를 선물해 주세요.</p>
             <a href="#adopt" class="cta-button">아이들 만나러 가기</a>
             <div style="margin-top: 15px;">
-                <button onclick="openMbtiModal()" class="mbti-trigger-btn">
+                <button onclick="openMbtiModal()"
+                    style="background:rgba(255,255,255,0.9); color:#FF8A65; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s;">
                     🧩 나에게 딱 맞는 친구 찾기 (Test)
                 </button>
             </div>
@@ -42,34 +66,7 @@
             <p>지역을 상세하게 선택하면 더 빠르게 조회됩니다.</p>
         </div>
 
-        <div class="search-wrapper">
-            <select id="sido-select" aria-label="시/도 선택">
-                <option value="">시/도 선택</option>
-                <option value="6110000">서울특별시</option>
-                <option value="6260000">부산광역시</option>
-                <option value="6270000">대구광역시</option>
-                <option value="6280000">인천광역시</option>
-                <option value="6290000">광주광역시</option>
-                <option value="6300000">대전광역시</option>
-                <option value="6310000">울산광역시</option>
-                <option value="6410000">경기도</option>
-                <option value="6420000">강원도</option>
-                <option value="6500000">제주특별자치도</option>
-                <option value="6430000">충청북도</option>
-                <option value="6440000">충청남도</option>
-                <option value="6450000">전라북도</option>
-                <option value="6460000">전라남도</option>
-                <option value="6470000">경상북도</option>
-                <option value="6480000">경상남도</option>
-                <option value="6510000">세종특별자치시</option>
-            </select>
-
-            <select id="sigungu-select" disabled aria-label="구/군 선택">
-                <option value="">구/군 전체</option>
-            </select>
-
-            <button id="search-btn">조회하기</button>
-        </div>
+        <div class="search-wrapper"></div>
 
         <div id="loading-message" style="display:none; text-align: center; margin: 20px;">
             데이터를 불러오는 중입니다...
@@ -95,9 +92,9 @@
                     <h2 id="modal-animal-kind">품종</h2>
                     <hr>
                     <p id="modal-age"></p>
-                    <p id="modal-date"></p>
+                    <p id="modal-date"> </p>
                     <p id="modal-contact-info"></p>
-                    
+
                     <button id="modal-more-btn" class="more-btn">상세정보 더보기 👇</button>
                     <div id="modal-extra-details" class="extra-details" style="display: none;"></div>
 
@@ -118,7 +115,8 @@
             </div>
             <div id="mbti-result" style="display:none;">
                 <h3>당신의 운명의 단짝은?</h3>
-                <div id="mbti-result-text" style="font-size:1.4rem; font-weight:bold; color:#FF7043; margin:30px 0;"></div>
+                <div id="mbti-result-text" style="font-size:1.4rem; font-weight:bold; color:#FF7043; margin:30px 0;">
+                </div>
                 <p style="color:#666; margin-bottom:30px;">이런 친구들을 보호소에서 찾아보세요!</p>
                 <button class="cta-button" onclick="closeMbtiModal(); location.href='#adopt'">입양 리스트 보러가기</button>
             </div>
@@ -128,10 +126,13 @@
     <footer id="contact">
         <div class="container">
             <h3>입양 문의</h3>
-            <img id="modal-qr-img" src="qrcode.png" alt="QR코드">
+
+            <img src="qrcode.png" alt="입양 문의 QR코드" width="120" height="120">
+
             <p>📞 010-1234-5678 | 📧 help@warmfriend.com</p>
             <p class="copyright">&copy; 2025 따뜻한 동반자. All rights reserved.</p>
         </div>
     </footer>
 </body>
+
 </html>
