@@ -3,10 +3,26 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>따뜻한 동반자</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" as="image" href="hero-image.webp" fetchpriority="high">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" 
+          rel="stylesheet" 
+          media="print" 
+          onload="this.media='all'">
+    
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    </noscript>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="style.css"></noscript>
+
     <script src="script.js" defer></script>
 </head>
 
@@ -134,7 +150,7 @@
     <footer id="contact">
         <div class="container">
             <h3>입양 문의</h3>
-            <img id="modal-qr-img" src="qrcode.png" width='300' height='300'>
+            <img id="modal-qr-img" src="qrcode.png" width='200' height='200'>
             <p>📞 010-1234-5678 | 📧 help@warmfriend.com</p>
             <p class="copyright">&copy; 2025 따뜻한 동반자. All rights reserved.</p>
         </div>
@@ -145,4 +161,5 @@
 
 
 </html>
+
 
