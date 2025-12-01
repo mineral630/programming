@@ -1,9 +1,11 @@
-/* 기본 설정 */
+/* style.css 전체 교체 */
+
 :root {
-    --primary-color: #E64A19;
-    --hover-color: #FF7043;
+    --primary-color: #BF360C; 
+    --hover-color: #D84315;
     --text-color: #333;
     --bg-color: #F9F9F9;
+    --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
 
 body {
@@ -16,6 +18,7 @@ body {
 
 a { text-decoration: none; color: inherit; }
 ul { list-style: none; padding: 0; }
+button { font-family: inherit; } /* 폰트 상속 */
 
 /* 헤더 */
 header {
@@ -39,8 +42,7 @@ header nav a:hover { color: var(--primary-color); }
 
 /* 히어로 섹션 */
 .hero {
-    /* 기존 URL 대신 최적화된 URL(webp 포맷, 너비 800px) 사용 */
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('hero-image.webp');
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('hero-image.webp');
     background-size: cover;
     background-position: center;
     height: 400px;
@@ -60,23 +62,36 @@ header nav a:hover { color: var(--primary-color); }
     display: inline-block;
     margin-top: 20px;
     transition: 0.3s;
+    box-shadow: 0 4px 6px rgba(191, 54, 12, 0.2);
 }
 .cta-button:hover { background: var(--hover-color); transform: scale(1.05); }
+
+/* MBTI 테스트 버튼 */
+.mbti-trigger-btn {
+    background: rgba(255,255,255,0.95);
+    color: #FF8A65;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+.mbti-trigger-btn:hover { background: white; transform: translateY(-2px); }
 
 /* 메인 콘텐츠 */
 .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
 .section-header { text-align: center; margin-bottom: 40px; }
 
-/* 🔍 검색창 스타일 (반응형) */
+/* 검색창 */
 .search-wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 10px;
     margin-bottom: 30px;
     flex-wrap: wrap;
 }
-
 select {
     padding: 10px 15px;
     font-size: 1rem;
@@ -84,12 +99,9 @@ select {
     border-radius: 8px;
     width: 160px;
     outline: none;
-    background-color: white;
     cursor: pointer;
 }
 select:focus { border-color: var(--primary-color); }
-select:disabled { background-color: #f0f0f0; cursor: not-allowed; color: #aaa; }
-
 #search-btn {
     padding: 10px 25px;
     background-color: var(--primary-color);
@@ -100,11 +112,9 @@ select:disabled { background-color: #f0f0f0; cursor: not-allowed; color: #aaa; }
     cursor: pointer;
     font-weight: bold;
     transition: 0.2s;
+    box-shadow: 0 4px 6px rgba(191, 54, 12, 0.2);
 }
-#search-btn:hover {
-    background-color: var(--hover-color);
-    transform: translateY(-2px);
-}
+#search-btn:hover { background-color: var(--hover-color); transform: translateY(-2px); }
 
 /* 카드 그리드 */
 .cards-grid {
@@ -116,11 +126,12 @@ select:disabled { background-color: #f0f0f0; cursor: not-allowed; color: #aaa; }
     background: white;
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
-    cursor: pointer; /* 클릭 가능하다는 표시 */
+    box-shadow: var(--card-shadow);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    border: 1px solid #f0f0f0;
 }
-.card:hover { transform: translateY(-5px); }
+.card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.1); }
 .card img { width: 100%; height: 220px; object-fit: cover; }
 .card-body { padding: 20px; }
 .card-body h3 { margin: 0 0 10px 0; color: var(--primary-color); font-size: 1.2rem; }
@@ -133,212 +144,76 @@ select:disabled { background-color: #f0f0f0; cursor: not-allowed; color: #aaa; }
     background: #333;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 1rem;
-}
-footer { background: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
-
-/* 👇👇 QR 코드 반응형 스타일 추가 👇👇 */
-#modal-qr-img {
-    max-width: 100%; /* 화면이 좁아지면 이미지도 같이 줄어듦 */
-    height: auto;    /* 너비가 줄어들 때 높이 비율 유지 */
-    margin: 20px 0;  /* 위아래 여백 */
-    border-radius: 10px; /* 모서리 살짝 둥글게 (선택사항) */
-}
-
-
-/* ⭐⭐⭐ 모달 스타일 ⭐⭐⭐ */
-.modal {
-    display: none; /* 기본적으로 숨김 */
-    position: fixed;
-    z-index: 200; 
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.7); /* 배경을 어둡게 처리 */
-}
-
-.modal-content {
-    background-color: #fefefe;
-    margin: 10% auto; /* 상하 10%, 좌우 자동 */
-    padding: 30px;
-    border-radius: 10px;
-    width: 90%; 
-    max-width: 700px; /* 모달의 최대 너비 */
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative;
-}
-
-.modal-body {
-    display: flex;
-    gap: 30px;
-    align-items: flex-start;
-}
-
-#modal-animal-img {
-    width: 45%;
-    max-height: 350px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-
-.modal-info {
-    width: 55%;
-}
-
-.modal-info h2 {
-    margin-top: 0;
-    font-size: 1.8rem;
-}
-
-.modal-info hr {
-    border: 0;
-    border-top: 1px solid #eee;
-    margin: 15px 0;
-}
-
-.modal-info p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-}
-
-.close-btn {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    position: absolute;
-    top: 10px;
-    right: 20px;
-}
-
-.close-btn:hover,
-.close-btn:focus {
-    color: #333;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-/* 반응형 모달 */
-@media (max-width: 768px) {
-    .modal-content {
-        margin: 5% auto;
-        padding: 20px;
-    }
-    .modal-body {
-        flex-direction: column; /* 작은 화면에서 세로로 배열 */
-        align-items: center;
-        gap: 20px;
-    }
-    #modal-animal-img {
-        width: 100%; 
-        max-height: 300px;
-    }
-    .modal-info {
-        width: 100%;
-        text-align: center;
-    }
-}
-/* MBTI 버튼 스타일 */
-.mbti-btn {
-    display: block;
-    width: 100%;
-    margin: 10px 0;
-    padding: 15px;
-    border: 2px solid #eee;
-    background: white;
-    border-radius: 12px;
-    cursor: pointer;
-    font-size: 1.1rem;
     transition: 0.2s;
 }
+#load-more-btn:hover { background: #555; }
+footer { background: #333; color: white; text-align: center; padding: 30px 0; margin-top: 50px; }
+#modal-qr-img { max-width: 200px; height: auto; margin: 20px 0; border-radius: 10px; }
 
-    .mbti-btn:hover {
-        background: #FF8A65;
-        color: white;
-        border-color: #FF8A65;
-    }
-/* style.css 맨 아래에 추가 */
-
-/* 📱 모바일 및 태블릿 화면(768px 이하)을 위한 스타일 */
-@media (max-width: 768px) {
-    
-    /* 1. 헤더: 로고와 메뉴를 세로로 배치하고 가운데 정렬 */
-    .header-content {
-        flex-direction: column;
-        gap: 15px;
-        padding: 15px;
-    }
-
-    header nav ul {
-        gap: 20px;
-        font-size: 0.95rem;
-        justify-content: center;
-    }
-
-    /* 2. 히어로 섹션: 높이와 글자 크기 줄임 */
-    .hero {
-        height: 300px;
-        padding: 0 15px;
-    }
-
-    .hero h2 {
-        font-size: 1.8rem;
-    }
-
-    /* 3. 검색창: 모바일에서는 꽉 찬 버튼으로 변경 (터치하기 쉽게) */
-    .search-wrapper {
-        flex-direction: column; /* 세로로 쌓기 */
-        align-items: stretch;   /* 가로 꽉 채우기 */
-        padding: 0 20px;        /* 양옆 여백 */
-    }
-
-    .search-wrapper select,
-    .search-wrapper button {
-        width: 100%;       /* 너비 100% */
-        margin-bottom: 10px; /* 요소 사이 간격 */
-        height: 45px;      /* 터치하기 좋은 높이 */
-    }
-
-    /* 4. 카드 그리드: 여백 조정 */
-    .cards-grid {
-        grid-template-columns: repeat(auto-fit, minmax(100%, 1fr)); /* 모바일에서 1열로 꽉 차게 */
-        gap: 20px;
-    }
-    
-    .card img {
-        height: 200px;
-    }
-
-    /* 5. 모달: 꽉 찬 화면으로 변경 */
-    .modal-content {
-        width: 90%;
-        margin: 20% auto;
-        padding: 20px;
-    }
-    
-    /* 텍스트 가독성 확보 */
-    .container {
-        padding: 0 15px;
-    }
+/* 모달 공통 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200; 
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.7);
+    backdrop-filter: blur(2px); /* 배경 흐림 효과 */
 }
+.modal-content {
+    background-color: #fff;
+    margin: 5vh auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%; 
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.close-btn {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 2rem; color: #aaa; cursor: pointer;
+    transition: color 0.2s;
+}
+.close-btn:hover { color: #333; }
+
+/* 동물 상세 모달 */
+.modal-body { display: flex; gap: 30px; align-items: flex-start; }
+#modal-animal-img { width: 45%; max-height: 400px; object-fit: cover; border-radius: 8px; }
+.modal-info { width: 55%; }
+.modal-info h2 { margin-top: 0; color: var(--primary-color); font-size: 1.8rem; }
+.modal-info hr { border: 0; border-top: 1px solid #eee; margin: 15px 0; }
+.modal-info p { font-size: 1.05rem; line-height: 1.6; margin: 8px 0; }
+.more-btn {
+    background: #f1f1f1; border: none; padding: 10px; width: 100%;
+    margin-top: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #555;
+}
+.extra-details {
+    background: #fafafa; padding: 15px; border-radius: 8px; margin-top: 10px; border: 1px solid #eee;
+}
+
+/* MBTI 모달 */
+.mbti-btn {
+    display: block; width: 100%; margin: 10px 0; padding: 15px;
+    border: 2px solid #eee; background: white; border-radius: 12px;
+    cursor: pointer; font-size: 1.1rem; transition: 0.2s;
+}
+.mbti-btn:hover { background: #FF8A65; color: white; border-color: #FF8A65; }
+
+/* 📱 모바일 반응형 (통합됨) */
 @media (max-width: 768px) {
+    .header-content { flex-direction: column; gap: 15px; }
+    .hero { height: 300px; }
+    .search-wrapper { flex-direction: column; align-items: stretch; }
+    .search-wrapper select, .search-wrapper button { width: 100%; }
     
-    /* ... (기존 모바일 스타일들) ... */
-
-    /* 텍스트 가독성 확보 */
-    .container {
-        padding: 0 15px;
-    }
-
-    /* 👇👇 여기부터 추가하세요 👇👇 */
+    .modal-content { width: 95%; margin: 10% auto; padding: 20px; }
+    .modal-body { flex-direction: column; }
+    #modal-animal-img, .modal-info { width: 100%; }
     
-    /* 6. 모바일에서 QR 코드 크기 조정 */
-    #modal-qr-img {
-        width: 120px; /* 모바일에서는 300px 대신 180px 정도로 작게 표시 */
-        max-width: 80%; /* 화면이 아주 작을 경우 화면의 80%만 차지 */
-    }
+    #modal-qr-img { width: 120px; }
 }
