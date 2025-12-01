@@ -1,7 +1,7 @@
 {
   "name": "따뜻한 동반자",
   "short_name": "동반자",
-  "start_url": "./",
+  "start_url": "./", 
   "display": "standalone",
   "background_color": "#F9F9F9",
   "theme_color": "#FF8A65",
@@ -9,12 +9,14 @@
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ],
   "screenshots": [
