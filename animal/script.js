@@ -70,9 +70,9 @@ async function fetchAnimals() {
 
         const targetUrl = `${API_URL_ANIMAL}${queryParams}`;
 
-        // 🚀 [핵심 수정] CORS 에러를 피하기 위해 allorigins.win 사용
-        // 이 친구는 Access-Control-Allow-Origin: * (모두 허용)을 해줍니다.
         const response = await fetch(targetUrl);
+
+        //const response = await fetch(proxyUrl);
         if (!response.ok) throw new Error("네트워크 응답 실패");
 
         const textData = await response.text();
@@ -142,67 +142,85 @@ const closeBtn = document.querySelector('.close-btn');
 // script.js 의 openModal 함수 부분 교체
 
 function openModal(animalData) {
-    // 1. 이미지 처리
+    // 1. 데이터를 먼저 준비합니다 (DOM 조작 최소화)
     let showImg = animalData.popfile2 || animalData.filename2;
-    const modalImg = document.getElementById('modal-animal-img');
-    modalImg.src = showImg;
-    modalImg.referrerPolicy = "no-referrer";
-    modalImg.onerror = function () { this.src = 'https://placehold.co/600x400?text=Error'; };
-
-    // 2. 기본 정보 채우기
-    document.getElementById('modal-animal-kind').textContent = animalData.kindCd;
-    document.getElementById('modal-age').textContent = `나이: ${animalData.age} / 체중: ${animalData.weight}`;
-    document.getElementById('modal-date').textContent = `접수일: ${animalData.happenDt}`;
+    const kind = animalData.kindCd;
+    const age = `나이: ${animalData.age} / 체중: ${animalData.weight}`;
+    const date = `접수일: ${animalData.happenDt}`;
+    
     let sexStr = "미상"; 
-    if (animalData.sexCd === 'M') {
-        sexStr = "수컷";
-    } else if (animalData.sexCd === 'F') {
-        sexStr = "암컷";
-    }
-    document.getElementById('modal-sexCd').textContent = `성별: ${sexStr}`;
-    
-    const btn = document.getElementById('modal-inquiry-btn');
-    if (animalData.officetel) {
-        btn.href = `tel:${animalData.officetel}`;
-        btn.style.display = 'inline-block';
-    } else {
-        btn.style.display = 'none';
-    }
+    if (animalData.sexCd === 'M') sexStr = "수컷";
+    else if (animalData.sexCd === 'F') sexStr = "암컷";
 
-    // ⭐⭐⭐ 4. 더보기 버튼 및 상세 내용 처리 ⭐⭐⭐
-    const moreBtn = document.getElementById('modal-more-btn');
-    const extraDiv = document.getElementById('modal-extra-details');
-
-    // [수정됨] 성별 한글 변환 로직 (M:수컷, F:암컷, U:미상)
-
-    // 중성화 여부 변환
     const neuter = animalData.neuterYn === 'Y' ? '완료' : (animalData.neuterYn === 'N' ? '아니오' : '미상');
-    
-    // 상세 정보 HTML 구성
-    extraDiv.innerHTML = `
+    const extraContent = `
+        <p><strong>성별:</strong> ${sexStr}</p>
         <p><strong>중성화:</strong> ${neuter}</p>
         <p><strong>특징:</strong> ${animalData.specialMark}</p>
         <p><strong>보호장소:</strong> ${animalData.careAddr}</p>
     `;
 
-    // 초기화: 상세 내용은 숨기고, 버튼 텍스트 원상복구
-    extraDiv.style.display = 'none';
-    moreBtn.textContent = '상세정보 더보기 👇';
+    // 2. DOM 요소 가져오기
+    const modalImg = document.getElementById('modal-animal-img');
+    const moreBtn = document.getElementById('modal-more-btn');
+    const extraDiv = document.getElementById('modal-extra-details');
+    const inquiryBtn = document.getElementById('modal-inquiry-btn');
 
-    // 버튼 클릭 이벤트
-    moreBtn.onclick = function() {
-        if (extraDiv.style.display === 'none') {
-            extraDiv.style.display = 'block';
-            this.textContent = '상세정보 접기 👆';
+    // 3. requestAnimationFrame으로 시각적 업데이트 예약
+    // (브라우저가 다음 페인팅 타이밍에 맞춰 실행하므로 강제 리플로우가 줄어듭니다)
+    requestAnimationFrame(() => {
+        // 이미지 설정
+        modalImg.src = showImg;
+        modalImg.referrerPolicy = "no-referrer";
+        modalImg.onerror = function () { this.src = 'https://placehold.co/600x400?text=Error'; };
+
+        // 텍스트 내용 채우기
+        document.getElementById('modal-animal-kind').textContent = kind;
+        document.getElementById('modal-age').textContent = age;
+        document.getElementById('modal-date').textContent = date;
+        document.getElementById('modal-contact-info').innerHTML = contact;
+        // modal-sexCd 요소가 있다면 사용, 없으면 무시 (오류 방지)
+        const sexEl = document.getElementById('modal-sexCd');
+        if(sexEl) sexEl.textContent = `성별: ${sexStr}`;
+
+        // 버튼 링크 설정
+        if (animalData.officetel) {
+            inquiryBtn.href = `tel:${animalData.officetel}`;
+            inquiryBtn.style.display = 'inline-block';
         } else {
-            extraDiv.style.display = 'none';
-            this.textContent = '상세정보 더보기 👇';
+            inquiryBtn.style.display = 'none';
         }
+
+        // 상세 정보 설정
+        extraDiv.innerHTML = extraContent;
+        extraDiv.style.display = 'none';
+        moreBtn.textContent = '상세정보 더보기 👇';
+
+        // 모달 띄우기
+        modal.style.display = 'block';
+    });
+
+    // 버튼 클릭 이벤트 (이벤트 리스너는 프레임과 무관하므로 밖에서 설정)
+    moreBtn.onclick = function() {
+        // 여기서도 style.display를 읽고(Read) 바로 쓰는(Write) 행위를 최소화
+        const isHidden = extraDiv.style.display === 'none';
+        
+        requestAnimationFrame(() => {
+            if (isHidden) {
+                extraDiv.style.display = 'block';
+                this.textContent = '상세정보 접기 👆';
+            } else {
+                extraDiv.style.display = 'none';
+                this.textContent = '상세정보 더보기 👇';
+            }
+        });
     };
+}
 
     // 5. 모달 띄우기
     modal.style.display = 'block';
-}
+
+// 모달 닫기
 closeBtn.onclick = () => modal.style.display = 'none';
 window.onclick = (e) => { if (e.target == modal) modal.style.display = 'none'; };
 
@@ -218,5 +236,4 @@ function nextMbti(step, type) {
     document.getElementById('mbti-result').style.display = 'block';
     const text = document.getElementById('mbti-result-text');
     text.innerHTML = type === 'active' ? "🐶 활발한 믹스견!" : "🐱 조용한 고양이!";
-
 }
