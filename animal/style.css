@@ -1,0 +1,419 @@
+:root {
+    /* 기존보다 더 진한 오렌지색 (흰 글씨 가독성 확보) */
+    --primary-color: #C62828;
+    /* 또는 #BF360C */
+    --hover-color: #B71C1C;
+    --text-color: #212121;
+    --bg-color: #F9F9F9;
+}
+
+body {
+    font-family: 'Noto Sans KR', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+button {
+    font-family: inherit;
+}
+
+/* 폰트 상속 */
+
+/* 헤더 */
+header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+}
+
+header nav ul {
+    display: flex;
+    gap: 20px;
+    font-weight: 500;
+}
+
+header nav a:hover {
+    color: var(--primary-color);
+}
+
+/* 히어로 섹션 */
+.hero {
+    position: relative;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    z-index: -1;
+
+    filter: brightness(0.6);
+}
+
+.hero-text {
+    position: relative;
+    z-index: 1;
+}
+
+.hero h2 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.cta-button:hover {
+    background: var(--hover-color);
+    transform: scale(1.05);
+}
+
+/* MBTI 테스트 버튼 */
+.mbti-trigger-btn {
+    background: rgba(255, 255, 255, 0.95);
+    color: #FF8A65;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: 0.3s;
+}
+
+.mbti-trigger-btn:hover {
+    background: white;
+    transform: translateY(-2px);
+}
+
+/* 메인 콘텐츠 */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+/* 검색창 */
+.search-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+}
+
+select {
+    padding: 10px 15px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    width: 160px;
+    outline: none;
+    cursor: pointer;
+}
+
+select:focus {
+    border-color: var(--primary-color);
+}
+
+#search-btn {
+    padding: 10px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.2s;
+    box-shadow: 0 4px 6px rgba(191, 54, 12, 0.2);
+}
+
+#search-btn:hover {
+    background-color: var(--hover-color);
+    transform: translateY(-2px);
+}
+
+/* 카드 그리드 */
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s;
+    cursor: pointer;
+    border: 1px solid #eee;
+
+    content-visibility: auto;
+    contain-intrinsic-size: 1px 350px;
+    /* 대략적인 카드 높이 예약 */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h3 {
+    margin: 0 0 10px 0;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+}
+
+.card-info {
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* 버튼 및 푸터 */
+.button-wrapper {
+    text-align: center;
+    margin-top: 40px;
+}
+
+#load-more-btn {
+    padding: 12px 40px;
+    background: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: 0.2s;
+}
+
+#load-more-btn:hover {
+    background: #555;
+}
+
+footer {
+    background: #333;
+    color: white;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 50px;
+}
+
+#modal-qr-img {
+    max-width: 200px;
+    height: auto;
+    margin: 20px 0;
+    border-radius: 10px;
+}
+
+/* 모달 공통 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 200;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(2px);
+    /* 배경 흐림 효과 */
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 5vh auto;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 2rem;
+    color: #aaa;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-btn:hover {
+    color: #333;
+}
+
+/* 동물 상세 모달 */
+.modal-body {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+}
+
+#modal-animal-img {
+    width: 45%;
+    max-height: 400px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.modal-info {
+    width: 55%;
+}
+
+.modal-info h2 {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.8rem;
+}
+
+.modal-info hr {
+    border: 0;
+    border-top: 1px solid #eee;
+    margin: 15px 0;
+}
+
+.modal-info p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.more-btn {
+    background: #f1f1f1;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    margin-top: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+}
+
+.extra-details {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+}
+
+/* MBTI 모달 */
+.mbti-btn {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 15px;
+    border: 2px solid #eee;
+    background: white;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    transition: 0.2s;
+}
+
+.mbti-btn:hover {
+    background: #FF8A65;
+    color: white;
+    border-color: #FF8A65;
+}
+
+/* 📱 모바일 반응형 (통합됨) */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .hero {
+        height: 300px;
+    }
+
+    .search-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .search-wrapper select,
+    .search-wrapper button {
+        width: 100%;
+    }
+
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 20px;
+    }
+
+    .modal-body {
+        flex-direction: column;
+    }
+
+    #modal-animal-img,
+    .modal-info {
+        width: 100%;
+    }
+
+    #modal-qr-img {
+        width: 120px;
+    }
+}

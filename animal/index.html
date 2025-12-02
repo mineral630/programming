@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <title>따뜻한 동반자 - 유기동물 입양</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload" as="image" href="hero-image.webp" fetchpriority="high">
+
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet"
+        media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
+    </noscript>
+
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet" href="style.css">
+    </noscript>
+
+
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="header-content">
+            <h1>🐾 따뜻한 동반자</h1>
+            <nav>
+                <ul>
+                    <li><a href="#home">홈</a></li>
+                    <li><a href="#adopt">입양하기</a></li>
+                    <li><a href="#contact">문의하기</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <img src="hero-image.webp" class="hero-bg" alt="강아지와 함께하는 행복한 모습" fetchpriority="high" decoding="async"
+            width="1200" height="400">
+
+        <div class="hero-text">
+            <h2>가족을 입양하세요</h2>
+            <p>작은 생명에게 두 번째 기회를 선물해 주세요.</p>
+            <a href="#adopt" class="cta-button">아이들 만나러 가기</a>
+            <div style="margin-top: 15px;">
+                <button onclick="openMbtiModal()"
+                    style="background:rgba(255,255,255,0.9); color:#FF8A65; border:none; padding:12px 25px; border-radius:30px; font-weight:bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: 0.3s;">
+                    🧩 나에게 딱 맞는 친구 찾기 (Test)
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <main id="adopt" class="container">
+        <div class="section-header">
+            <h2>가족을 기다려요</h2>
+            <p>지역을 상세하게 선택하면 더 빠르게 조회됩니다.</p>
+        </div>
+
+        <div class="search-wrapper"></div>
+
+        <div id="loading-message" style="display:none; text-align: center; margin: 20px;">
+            데이터를 불러오는 중입니다...
+        </div>
+
+        <div id="animal-cards-container" class="cards-grid">
+            <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: #888;">
+                👆 위에서 지역을 선택하고 <strong>조회하기</strong>를 눌러주세요.
+            </div>
+        </div>
+
+        <div class="button-wrapper">
+            <button id="load-more-btn" style="display:none;">더 보기</button>
+        </div>
+    </main>
+
+    <div id="animal-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-body">
+                <img id="modal-animal-img" src="" alt="동물 사진">
+                <div class="modal-info">
+                    <h2 id="modal-animal-kind">품종</h2>
+                    <hr>
+                    <p id="modal-age"></p>
+                    <p id="modal-date"> </p>
+                    <p id="modal-contact-info"></p>
+
+                    <button id="modal-more-btn" class="more-btn">상세정보 더보기 👇</button>
+                    <div id="modal-extra-details" class="extra-details" style="display: none;"></div>
+
+                    <a id="modal-inquiry-btn" href="#" class="cta-button" style="margin-top: 20px;">문의하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="mbti-modal" class="modal">
+    <div class="modal-content" style="text-align:center; max-width: 400px;">
+        <span class="close-btn" onclick="closeMbtiModal()">&times;</span>
+        <br>
+        
+        <div id="mbti-step-1" class="mbti-step">
+            <h3 style="color:#333; margin-bottom:20px;">Q1. 주말에 나는?</h3>
+            <button class="mbti-btn" onclick="nextMbti(1, 'E')">🏃 외부 활동, 운동, 친구들과의 모임을 위해 반드시 외출한다.</button>
+            <button class="mbti-btn" onclick="nextMbti(1, 'I')">🏠 집에서 조용히 휴식을 취하거나 취미 생활을 즐긴다. </button>
+        </div>
+
+        <div id="mbti-step-2" class="mbti-step" style="display:none;">
+            <h3 style="color:#333; margin-bottom:20px;">Q2. 낯선 강아지를 만났을 때?</h3>
+            <button class="mbti-btn" onclick="nextMbti(2, 'E')">👋 안녕! 바로 다가간다.</button>
+            <button class="mbti-btn" onclick="nextMbti(2, 'I')">👀 멀리서 지켜본다.</button>
+        </div>
+
+        <div id="mbti-step-3" class="mbti-step" style="display:none;">
+            <h3 style="color:#333; margin-bottom:20px;">Q3. 산책할 때 나는?</h3>
+            <button class="mbti-btn" onclick="nextMbti(3, 'E')">💨 냄새 맡으며 여기저기!</button>
+            <button class="mbti-btn" onclick="nextMbti(3, 'I')">🚶 조용히 걷기만 해.</button>
+        </div>
+
+        <div id="mbti-result" style="display:none;">
+            <h3>당신의 운명의 단짝은?</h3>
+            <div id="mbti-result-icon" style="font-size:4rem; margin:10px 0;"></div>
+            <div id="mbti-result-text" style="font-size:1.4rem; font-weight:bold; color:#FF7043; margin:10px 0;"></div>
+            <p id="mbti-result-desc" style="color:#666; margin-bottom:30px; font-size: 0.95rem;"></p>
+            <button class="cta-button" onclick="closeMbtiModal(); location.href='#adopt'">입양 리스트 보러가기</button>
+        </div>
+    </div>
+</div>
+
+    <footer id="contact">
+        <div class="container">
+            <h3>입양 문의</h3>
+
+            <img src="qrcode.webp" alt="입양 문의 QR코드" width="120" height="120">
+
+            <p>📞 010-1234-5678 | 📧 help@warmfriend.com</p>
+            <p class="copyright">&copy; 2025 따뜻한 동반자. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
