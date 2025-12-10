@@ -1,0 +1,164 @@
+/* 기본 설정 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background-color: #2c3e50;
+    /* 짙은 배경 */
+    color: white;
+    padding: 60px 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin-bottom: 5px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline;
+    margin: 0 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+section {
+    padding: 40px 5%;
+    max-width: 900px;
+    margin: auto;
+}
+
+/* 프로젝트 아이템 스타일 */
+.project-item {
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    background-color: white;
+}
+
+/* 기술 숙련도 바 스타일 */
+.progress-bar {
+    background-color: #e0e0e0;
+    height: 20px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    overflow: hidden;
+    /* 내부 막대 숨김 */
+}
+
+/* 언어별 숙련도 (CSS로 길이 설정) */
+.progress-bar::after {
+    content: '';
+    display: block;
+    height: 100%;
+    background-color: #3498db;
+    /* 강조 색상 */
+    border-radius: 10px;
+    transition: width 0.5s ease;
+}
+
+.c::after {
+    width: 20%;
+}
+
+.python::after {
+    width: 20%;
+}
+
+.java::after {
+    width: 20%;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+}
+
+footer a {
+    color: #3498db;
+}
+
+.hobbies-list {
+    display: flex;
+    /* 항목들을 가로로 배열하기 위해 flexbox 사용 */
+    flex-wrap: wrap;
+    /* 창 크기에 따라 줄 바꿈 허용 */
+    gap: 20px;
+    /* 항목 간 간격 */
+    justify-content: center;
+}
+
+.hobby-item {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* 약간의 그림자로 입체감 부여 */
+    width: calc(33% - 20px);
+    /* 한 줄에 3개 항목이 들어갈 수 있도록 설정 */
+    min-width: 250px;
+    /* 항목이 너무 작아지는 것을 방지 */
+}
+
+.hobby-item h3 {
+    color: #2c3e50;
+    /* 헤더 색상과 통일 */
+    border-bottom: 2px solid #3498db;
+    /* 강조 색상으로 밑줄 */
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+#education-experience {
+    padding: 40px 5%;
+}
+
+.timeline-item {
+    border-left: 3px solid #3498db;
+    /* 강조색 세로줄 */
+    padding-left: 20px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+.timeline-item h3 {
+    margin-top: 0;
+    color: #2c3e50;
+}
+
+.timeline-meta {
+    font-style: italic;
+    color: #777;
+    margin-bottom: 10px;
+}
+
+/* 타임라인 점 표시 */
+.timeline-item::before {
+    content: '•';
+    position: absolute;
+    left: -10px;
+    /* 세로줄 위에 오도록 위치 조정 */
+    top: 5px;
+    font-size: 20px;
+    color: #3498db;
+    background-color: #f4f4f9;
+    /* 배경색으로 덮기 */
+    padding: 0 5px;
+}
