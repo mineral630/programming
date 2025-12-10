@@ -73,15 +73,15 @@ section {
 }
 
 .c::after {
-    width: 20%;
+    width: 53%;
 }
 
 .python::after {
-    width: 20%;
+    width: 57%;
 }
 
 .java::after {
-    width: 20%;
+    width: 51%;
 }
 
 footer {
@@ -161,4 +161,5 @@ footer a {
     background-color: #f4f4f9;
     /* 배경색으로 덮기 */
     padding: 0 5px;
+
 }
